@@ -1,3 +1,4 @@
+<img src=https://www.toriihq.com/hubfs/Torii_logo_new.svg>
 # Welcome to your Torii Data Warehouse dbt project!
 
 ## Project installation
