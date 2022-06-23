@@ -42,3 +42,21 @@ Try running the following commands:
 ## dbt Packages included
 
 - dbtVault: https://dbtvault.readthedocs.io/en/latest/
+
+## Snowflake
+- After receiving a user login into: https://app.snowflake.com/us-west-2
+- databases:
+
+| environment |database|schema|
+|-------------|------|------|
+| development |stage_dev|raw_stage_dev|
+| development |data_vault_dev|raw_vault_dev|
+| development |data_vault_dev|biz_dev|
+| development |data_marts_dev|mart_global_dev|
+| development |data_marts_dev|mart_action_audit_dev|
+| prod        |stage|raw_stage|
+| prod        |data_vault|raw_vault|
+| prod        |data_vault|biz|
+| prod        |data_marts|mart_global|
+| prod        |data_marts|mart_action_audit|
+
