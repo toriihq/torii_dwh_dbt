@@ -44,7 +44,7 @@ Try running the following commands:
 - dbtVault: https://dbtvault.readthedocs.io/en/latest/
 
 ## Snowflake
-- After receiving a user login into: https://app.snowflake.com/us-west-2
+- After receiving permission to access, login into: https://app.snowflake.com/us-west-2
 - databases:
 
 | environment |database|schema|
