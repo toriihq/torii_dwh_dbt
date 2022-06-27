@@ -8,7 +8,7 @@ begin;
    set user_name = 'FIVETRAN_USER';
    set user_password = 'password123'; -- password changed
    set warehouse_name = 'FIVETRAN_WAREHOUSE';
-   set database_name = 'STAGE_DEV';
+   set database_name = 'STAGE';
 
    -- change role to securityadmin for user / role steps
    use role securityadmin;
@@ -186,3 +186,14 @@ grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema STAGE.RAW_
 
 //add read access to roles looker
 grant role BU to role looker;
+
+-- create dev sys users
+create user dbt password = 'l3FOMrChRS3kfKa6RDrw' default_role = dbt must_change_password = false ;
+
+grant role dbt to user dbt;
+
+alter user dbt set rsa_public_key = 'the public key for dbt';
+
+desc user dbt;
+
+alter user jsmith set rsa_public_key=

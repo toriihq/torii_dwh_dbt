@@ -43,6 +43,9 @@ Try running the following commands:
 
 - dbtVault: https://dbtvault.readthedocs.io/en/latest/
 
+## dbt SQL standard
+https://github.com/dbt-labs/corp/blob/main/dbt_style_guide.md
+
 ## Snowflake
 - After receiving permission to access, login into: https://app.snowflake.com/us-west-2
 - databases:
