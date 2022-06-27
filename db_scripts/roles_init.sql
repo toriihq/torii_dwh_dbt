@@ -97,6 +97,7 @@ show grants to role BU;
 //grant role to my user
 grant role BU to user udilerner;
 grant role Analyst to user udilerner;
+grant role Power_Analyst to user udilerner;
 grant role BI_Engineer to user udilerner;
 grant role Data_Engineer to user udilerner;
 grant role dbt to user udilerner;
@@ -127,12 +128,15 @@ grant usage on DATABASE "DATA_VAULT" to role Power_Analyst;
 grant usage on DATABASE "STAGE" to role Power_Analyst;
 grant usage on schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant usage on schema DATA_VAULT.BIZ to role Power_Analyst;
+grant usage on schema STAGE.AURORA_TORII to role POWER_ANALYST;
 grant select on all tables in schema DATA_VAULT.BIZ to role Power_Analyst;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant select on all tables in schema STAGE.RAW_STAGE to role Power_Analyst;
+grant select on all tables in schema STAGE.AURORA_TORII to role Power_Analyst;
 grant select on future tables in schema DATA_VAULT.BIZ to role Power_Analyst;
 grant select on future tables in schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant select on future tables in schema STAGE.RAW_STAGE to role Power_Analyst;
+grant select on future tables in schema STAGE.AURORA_TORII to role Power_Analyst;
 
 //add read access to roles BI_Engineer
 grant role Analyst to role BI_ENGINEER;
@@ -194,6 +198,15 @@ grant role dbt to user dbt;
 
 alter user dbt set rsa_public_key = 'the public key for dbt';
 
-desc user dbt;
 
-alter user jsmith set rsa_public_key=
+-- grant Power_Analyst role access to warehouse
+   grant USAGE
+   on warehouse BI_WH
+   to role POWER_ANALYST;
+
+grant USAGE
+   on warehouse BI_WH
+   to role POWER_ANALYST;
+-- grant
+
+
