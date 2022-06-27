@@ -27,4 +27,4 @@ create schema data_vault.raw_vault;
 create schema data_vault.biz;
 
 create schema stage.raw_stage;
-create schema stage.stage;
+

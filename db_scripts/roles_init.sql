@@ -125,16 +125,19 @@ grant role Data_Engineer to user udilerner;
 grant role dbt to user udilerner;
 grant role looker to user udilerner;
 
-//add read access to roles
+//add read access to roles BU
 grant usage on DATABASE "DATA_MARTS" to role BU;
 grant select on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role BU;
+grant select on future tables in schema DATA_MARTS.MART_ACTION_AUDIT to role BU;
 grant select on all tables in schema DATA_MARTS.MART_GLOBAL to role BU;
 
+//add read access to roles Analyst
 grant role BU to role Analyst;
 grant usage on DATABASE "DATA_MARTS_DEV" to role Analyst;
 grant select on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role Analyst;
 grant select on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role Analyst;
 
+//add read access to roles Power_Analyst
 grant role BU to role Power_Analyst;
 grant usage on DATABASE "DATA_VAULT" to role Power_Analyst;
 grant usage on DATABASE "STAGE" to role Power_Analyst;
@@ -142,27 +145,33 @@ grant select on all tables in schema DATA_VAULT.BIZ to role Power_Analyst;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant select on all tables in schema STAGE.RAW_STAGE to role Power_Analyst;
 
+//add read access to roles BI_Engineer
 grant role Analyst to role BI_ENGINEER;
 grant usage on DATABASE "DATA_VAULT" to role BI_ENGINEER;
 grant select on all tables in schema DATA_VAULT.BIZ to role BI_ENGINEER;
 grant usage on DATABASE "DATA_VAULT_DEV" to role BI_ENGINEER;
 grant select on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role BI_ENGINEER;
 
+//add read access to roles Data_Engineer
 grant role BI_ENGINEER to role DATA_ENGINEER;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
-grant select on all tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant usage on DATABASE "STAGE" to role DATA_ENGINEER;
 grant select on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant usage on DATABASE "STAGE_DEV" to role DATA_ENGINEER;
-grant select on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 
+//add read access to roles dbt
+grant role DATA_ENGINEER to role dbt;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS.MART_GLOBAL to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT.BIZ to role DATA_ENGINEER;
+grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
 
+//add read access to roles looker
+grant role BU to role looker;
 
-
-use role BU;
-
-show databases ;
-
-use role accountadmin;
-
--- create warehouse for BU role
