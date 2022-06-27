@@ -33,11 +33,11 @@ System-Defined Roles
 
 ## warehouses
 
-| Warehouse        | Funtion | Roles |
-|------------------|--------|-------|
-| BI_WH            |BI / Analytics compute resources|BU; Analyst; BI Engineer|
-| DWH_DEV_WH       |DWH Developer|DWH Developer|
-| DBT_WH           |dbt purposes|dbt|
-| LOOKER_WH       |looker purposes|looker|
-| FIVETRAN_WAREHOUSE |fivetran purposes|fivetran|
-| COMPUTE_WH          |system purposes|ALL system defined|
+| Warehouse        | Funtion | Roles                                   |
+|------------------|--------|-----------------------------------------|
+| BI_WH            |BI / Analytics compute resources| BU; Analyst; BI Engineer; Power Analyst |
+| DWH_DEV_WH       |DWH Developer| DWH Developer                           |
+| DBT_WH           |dbt purposes| dbt                                     |
+| LOOKER_WH       |looker purposes| looker                                  |
+| FIVETRAN_WAREHOUSE |fivetran purposes| fivetran                                |
+| COMPUTE_WH          |system purposes| ALL system defined                      |
