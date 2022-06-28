@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="torii_dwh_snowflake" uuid="e361db34-55ec-41a3-b66d-6f533f75c56d">
+    <data-source source="LOCAL" name="torii_dwh_snowflake" single-connection="true" uuid="e361db34-55ec-41a3-b66d-6f533f75c56d">
       <driver-ref>snowflake</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>net.snowflake.client.jdbc.SnowflakeDriver</jdbc-driver>
       <jdbc-url>jdbc:snowflake://ynfzotv-wma10207.snowflakecomputing.com:443</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <auto-close enable="true" />
     </data-source>
   </component>
 </project>

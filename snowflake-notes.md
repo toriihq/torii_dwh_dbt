@@ -22,12 +22,12 @@ System-Defined Roles
 |---------------|------------------------------------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------|
 | BU            | Gneral Anlytics needs| data_marts                                                         | Read Only                                           |
 | Analyst       | Analyst users, future development of data marts, and testing of new features | data_marts; data_marts_dev    | Read Only (future development ability);Read Only    |
-|Power_Analyst|High Level users to see all DWH prod layers| stage; data_vault; data_marts                                      | Read Only                                           |
-| BI Engineer   | BI development, future development of data marts, and testing of new features| data_marts;data_vault.biz; data_marts_dev;data_vault_dev.biz_dev                  | Read Only (future development ability);Read Only    |
-| Data Engineer | Develop DWH components| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | Read Only |
+| Power_Analyst |High Level users to see all DWH prod layers| stage; data_vault; data_marts                                      | Read Only                                           |
+| BI_Engineer   | BI development, future development of data marts, and testing of new features| data_marts;data_vault.biz; data_marts_dev;data_vault_dev.biz_dev                  | Read Only (future development ability);Read Only    |
+| Data_Engineer | Develop DWH components| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | Read Only |
 | dbt           | dbt User purposes, will debug/test/compile/deploy db objects of DWH| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | read/delete/update                                  |
-| looker        | looker usage| data_marts                                                         | Read Only                                           |
-| fivetran      | Extract & Load purposes into the DWH| stage; stage_dev?                                                  | create/update/delete                                | 
+| LOOKER_ROLE   | looker usage| data_marts                                                         | Read Only                                           |
+| FIVETRAN_ROLE | Extract & Load purposes into the DWH| stage; stage_dev?                                                  | create/update/delete                                | 
 
 # Torii Snowflake Compute Resources - warehouses
 
@@ -36,7 +36,7 @@ System-Defined Roles
 | Warehouse        | Funtion | Roles                                   |
 |------------------|--------|-----------------------------------------|
 | BI_WH            |BI / Analytics compute resources| BU; Analyst; BI Engineer; Power Analyst |
-| DWH_DEV_WH       |DWH Developer| DWH Developer                           |
+| DWH_DEV_WH       |DWH Developer| Data_Engineer                            |
 | DBT_WH           |dbt purposes| dbt                                     |
 | LOOKER_WH       |looker purposes| looker                                  |
 | FIVETRAN_WAREHOUSE |fivetran purposes| fivetran                                |

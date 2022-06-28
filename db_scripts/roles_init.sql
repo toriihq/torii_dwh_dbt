@@ -1,63 +1,3 @@
--- initiate Role Hierarchy: Access control designed to inherit permissions
--- ----------------------------------------------------------------------
--- 1.fivetran settings
-begin;
-
-   -- create variables for user / password / role / warehouse / database (needs to be uppercase for objects)
-   set role_name = 'FIVETRAN_ROLE';
-   set user_name = 'FIVETRAN_USER';
-   set user_password = 'password123'; -- password changed
-   set warehouse_name = 'FIVETRAN_WAREHOUSE';
-   set database_name = 'STAGE';
-
-   -- change role to securityadmin for user / role steps
-   use role securityadmin;
-
-   -- create role for fivetran
-   create role if not exists identifier($role_name);
-   grant role identifier($role_name) to role SYSADMIN;
-
-   -- create a user for fivetran
-   create user if not exists identifier($user_name)
-   password = $user_password
-   default_role = $role_name
-   default_warehouse = $warehouse_name;
-
-   grant role identifier($role_name) to user identifier($user_name);
-
-   -- change role to sysadmin for warehouse / database steps
-   use role sysadmin;
-
-   -- create a warehouse for fivetran
-   create warehouse if not exists identifier($warehouse_name)
-   warehouse_size = xsmall
-   warehouse_type = standard
-   auto_suspend = 60
-   auto_resume = true
-   initially_suspended = true;
-
-   -- create database for fivetran
-   create database if not exists identifier($database_name);
-
-   -- grant fivetran role access to warehouse
-   grant USAGE
-   on warehouse identifier($warehouse_name)
-   to role identifier($role_name);
-
-   -- grant fivetran access to database
-   grant CREATE SCHEMA, MONITOR, USAGE
-   on database identifier($database_name)
-   to role identifier($role_name);
-
- commit;
-
--- https://fivetran.com/docs/getting-started/ips#usregions
-CREATE NETWORK POLICY fivetran_ip_whitelist_us ALLOWED_IP_LIST = ('35.227.135.0/29', '35.234.176.144/29', '52.0.2.4/32');
--- US	us-west-2 (Oregon)	35.80.36.104/29	35.80.36.104 - 35.80.36.111 AWS
--- CREATE NETWORK POLICY fivetran_ip_whitelist_us ALLOWED_IP_LIST = ('35.80.36.104/29',	'35.80.36.104/8');
-
--- key is located on private location of udi lerner
-alter user FIVETRAN_USER set rsa_public_key='<public key value>';
 
 -- 2. General Torii's User settings
 
@@ -77,68 +17,98 @@ alter user FIVETRAN_USER set rsa_public_key='<public key value>';
 -- https://docs.snowflake.com/en/user-guide/oauth-okta.html
 -- https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-configure-snowflake.html
 
--- create roles
 
--- add BU role
-use role USERADMIN;
-//create role BU
-create role BU;
-create role Analyst;
-create role Power_Analyst;
-create role BI_Engineer;
-create role Data_Engineer;
-create role dbt;
-create role looker;
+-- change role to sysadmin for user / role steps
+use role securityadmin;
 
-use role SECURITYADMIN;
-//verify no grants on BU
-show grants to role BU;
+-- create role for BU
+set role_name = 'BU';
+create role if not exists identifier($role_name);
 
-//grant role to my user
-grant role BU to user udilerner;
-grant role Analyst to user udilerner;
-grant role Power_Analyst to user udilerner;
-grant role BI_Engineer to user udilerner;
-grant role Data_Engineer to user udilerner;
-grant role dbt to user udilerner;
-grant role looker to user udilerner;
+-- create role for Analyst
+set role_name = 'Analyst';
+create role if not exists identifier($role_name);
+
+-- create role for Power_Analyst
+set role_name = 'Power_Analyst';
+create role if not exists identifier($role_name);
+
+-- create role for BI_Engineer
+set role_name = 'BI_Engineer';
+create role if not exists identifier($role_name);
+
+-- create role for Data_Engineer
+set role_name = 'Data_Engineer';
+create role if not exists identifier($role_name);
+
+
+-- grant roles by hierarchy
+grant role identifier('BU') to role Analyst;
+grant role identifier('Analyst') to role Power_Analyst;
+grant role identifier('Power_Analyst') to role SYSADMIN;
+
+grant role identifier('Analyst') to role BI_ENGINEER;
+grant role identifier('BI_ENGINEER') to role DATA_ENGINEER;
+grant role identifier('DATA_ENGINEER') to role dbt;
+
+-- create platform users dbt/looker
+
+-- change role to sysadmin for warehouse / database steps
+use role SYSADMIN;
+
+-- grant usage on future schemas in database mydb to role role1;
 
 //add read access to roles BU
 grant usage on DATABASE "DATA_MARTS" to role BU;
 grant usage on schema "DATA_MARTS"."MART_GLOBAL" to role BU;
 grant usage on schema "DATA_MARTS"."MART_ACTION_AUDIT" to role BU;
 grant select on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role BU;
-grant select on future tables in schema DATA_MARTS.MART_ACTION_AUDIT to role BU;
 grant select on all tables in schema DATA_MARTS.MART_GLOBAL to role BU;
+-- add usage and select for future
+use role ACCOUNTADMIN;
+grant usage on future schemas in database "DATA_MARTS" to role BU;
+grant select on future tables in schema DATA_MARTS.MART_ACTION_AUDIT to role BU;
 grant select on future tables in schema DATA_MARTS.MART_GLOBAL to role BU;
 
 //add read access to roles Analyst
+use role SYSADMIN;
 grant role BU to role Analyst;
 grant usage on DATABASE "DATA_MARTS_DEV" to role Analyst;
 grant usage on schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role Analyst;
 grant usage on schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role Analyst;
 grant select on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role Analyst;
 grant select on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role Analyst;
+-- add usage and select for future
+use role ACCOUNTADMIN;
+grant usage on future schemas in database "DATA_MARTS_DEV" to role Analyst;
 grant select on future tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role Analyst;
 grant select on future tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role Analyst;
 
 //add read access to roles Power_Analyst
+use role SYSADMIN;
 grant role BU to role Power_Analyst;
 grant usage on DATABASE "DATA_VAULT" to role Power_Analyst;
 grant usage on DATABASE "STAGE" to role Power_Analyst;
+grant usage on DATABASE "STAGE_FIVETRAN" to role Power_Analyst;
 grant usage on schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant usage on schema DATA_VAULT.BIZ to role Power_Analyst;
-grant usage on schema STAGE.AURORA_TORII to role POWER_ANALYST;
+grant usage on schema STAGE_FIVETRAN.RAW_TORII to role POWER_ANALYST;
 grant select on all tables in schema DATA_VAULT.BIZ to role Power_Analyst;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant select on all tables in schema STAGE.RAW_STAGE to role Power_Analyst;
-grant select on all tables in schema STAGE.AURORA_TORII to role Power_Analyst;
+grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role Power_Analyst;
+-- add usage and select for future
+use role ACCOUNTADMIN;
+grant usage on future schemas in database "DATA_VAULT" to role Power_Analyst;
+grant usage on future schemas in database "STAGE" to role Power_Analyst;
+grant usage on future schemas in database "STAGE_FIVETRAN" to role Power_Analyst;
 grant select on future tables in schema DATA_VAULT.BIZ to role Power_Analyst;
 grant select on future tables in schema DATA_VAULT.RAW_VAULT to role Power_Analyst;
 grant select on future tables in schema STAGE.RAW_STAGE to role Power_Analyst;
-grant select on future tables in schema STAGE.AURORA_TORII to role Power_Analyst;
+grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role Power_Analyst;
 
 //add read access to roles BI_Engineer
+use role SYSADMIN;
 grant role Analyst to role BI_ENGINEER;
 grant usage on DATABASE "DATA_VAULT" to role BI_ENGINEER;
 grant usage on DATABASE "DATA_VAULT_DEV" to role BI_ENGINEER;
@@ -148,13 +118,17 @@ grant usage on schema DATA_VAULT_DEV.RAW_VAULT_DEV to role BI_ENGINEER;
 grant usage on schema DATA_VAULT_DEV.BIZ_DEV to role BI_ENGINEER;
 grant select on all tables in schema DATA_VAULT.BIZ to role BI_ENGINEER;
 grant select on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role BI_ENGINEER;
+-- add usage and select for future
+use role ACCOUNTADMIN;
 grant select on future tables in schema DATA_VAULT.BIZ to role BI_ENGINEER;
 grant select on future tables in schema DATA_VAULT_DEV.BIZ_DEV to role BI_ENGINEER;
 
 //add read access to roles Data_Engineer
+use role SYSADMIN;
 grant role BI_ENGINEER to role DATA_ENGINEER;
 grant usage on DATABASE "STAGE" to role DATA_ENGINEER;
 grant usage on DATABASE "STAGE_DEV" to role DATA_ENGINEER;
+grant usage on DATABASE "STAGE_FIVETRAN" to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
@@ -164,7 +138,11 @@ grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DE
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
-
+-- add usage and select for future
+use role ACCOUNTADMIN;
+grant usage on future schemas in database "STAGE" to role DATA_ENGINEER;
+grant usage on future schemas in database "STAGE_DEV" to role DATA_ENGINEER;
+grant usage on future schemas in database "STAGE_FIVETRAN" to role DATA_ENGINEER;
 grant select on future tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
@@ -173,40 +151,28 @@ grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT
 grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on future tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
 
-
-//add read access to roles dbt
-grant role DATA_ENGINEER to role dbt;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS.MART_GLOBAL to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT.BIZ to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
-
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS.MART_GLOBAL to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS.MART_ACTION_AUDIT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT.BIZ to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
-
-//add read access to roles looker
-grant role BU to role looker;
-
--- create dev sys users
-create user dbt password = 'l3FOMrChRS3kfKa6RDrw' default_role = dbt must_change_password = false ;
-
-grant role dbt to user dbt;
-
-alter user dbt set rsa_public_key = 'the public key for dbt';
-
-
+use role sysadmin;
 -- grant Power_Analyst role access to warehouse
    grant USAGE
    on warehouse BI_WH
    to role POWER_ANALYST;
 
-grant USAGE
+-- grant Analyst role access to warehouse
+   grant USAGE
    on warehouse BI_WH
-   to role POWER_ANALYST;
--- grant
+   to role ANALYST;
 
+-- grant BU role access to warehouse
+   grant USAGE
+   on warehouse BI_WH
+   to role BU;
 
+-- grant BI_Engineer role access to warehouse
+   grant USAGE
+   on warehouse BI_WH
+   to role BI_ENGINEER;
+
+-- grant Data_Engineer role access to warehouse
+   grant USAGE
+   on warehouse DWH_DEV_WH
+   to role Data_Engineer;
