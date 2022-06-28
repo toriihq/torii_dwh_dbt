@@ -1,4 +1,5 @@
-use role ACCOUNTADMIN;
+use role SYSADMIN;
+
 -- init dev databases
 create database data_marts_dev;
 create  database data_vault_dev;
@@ -9,6 +10,7 @@ create database data_marts;
 create database data_vault;
 create database stage;
 
+use role SYSADMIN;
 -- init dev schema
 create schema data_marts_dev.mart_global_dev;
 create schema data_marts_dev.mart_action_audit_dev;
@@ -27,4 +29,3 @@ create schema data_vault.raw_vault;
 create schema data_vault.biz;
 
 create schema stage.raw_stage;
-
