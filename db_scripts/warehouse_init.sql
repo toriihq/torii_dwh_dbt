@@ -20,6 +20,3 @@ create warehouse LOOKER_WH
     auto_resume = true
     initially_suspended = true
     auto_suspend = 1800;
-
-//give permissions to
-grant usage on database "PC_DBT_DB" to role developer;

@@ -25,7 +25,7 @@ System-Defined Roles
 | Power_Analyst |High Level users to see all DWH prod layers| stage; data_vault; data_marts                                      | Read Only                                           |
 | BI_Engineer   | BI development, future development of data marts, and testing of new features| data_marts;data_vault.biz; data_marts_dev;data_vault_dev.biz_dev                  | Read Only (future development ability);Read Only    |
 | Data_Engineer | Develop DWH components| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | Read Only |
-| dbt           | dbt User purposes, will debug/test/compile/deploy db objects of DWH| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | read/delete/update                                  |
+| DBT_ROLE      | dbt User purposes, will debug/test/compile/deploy db objects of DWH| stage;data_vault;data_marts;stage_dev;data_vault_dev;data_marts_dev | read/delete/update                                  |
 | LOOKER_ROLE   | looker usage| data_marts                                                         | Read Only                                           |
 | FIVETRAN_ROLE | Extract & Load purposes into the DWH| stage; stage_dev?                                                  | create/update/delete                                | 
 

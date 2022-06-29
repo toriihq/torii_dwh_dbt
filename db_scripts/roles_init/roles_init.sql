@@ -6,7 +6,7 @@
 -- 1.BU - read only - okta account - BI_WH - xsmall - readonly data_mart
 -- 2.Analyst - read only - okta account -BI_WH - xsmall - readonly data_mart
 -- 3.BI engineer - okta account - BI_WH - xsmall - readonly data_mart
--- 4.DWH Developer - okta account - DEVELOPER_WH - xsmall - [BU] + [Analyst] + [BI Engineer] + insert/updates/deletes data_mart/data_vault/stage
+-- 4.DWH Developer - okta account - DEVELOPER_WH - xsmall - [BU] + [Analyst] + [BI Engineer] + insert/updates/deletes data_mart/data_vault/stage_fivetran
 -- 5.dbt - service account - dbt_WH - xsmall - [DWH Developer]
 -- 6.looker - service account - LOOKER_WH - xsmall - readonly data_mart
 -- 7.fivetran - service account - FIVETRAN_WAREHOUSE - xsmall
@@ -133,11 +133,12 @@ grant usage on SCHEMA STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
+grant all privileges on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 -- add usage and select for future
@@ -146,11 +147,11 @@ grant usage on future schemas in database "STAGE" to role DATA_ENGINEER;
 grant usage on future schemas in database "STAGE_DEV" to role DATA_ENGINEER;
 grant usage on future schemas in database "STAGE_FIVETRAN" to role DATA_ENGINEER;
 grant select on future tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
-grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
+grant all privileges  on future tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
+grant all privileges  on future tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
+grant all privileges  on future tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role DATA_ENGINEER;
+grant all privileges  on future tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
+grant all privileges  on future tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on future tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 
