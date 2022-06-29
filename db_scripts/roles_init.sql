@@ -131,6 +131,7 @@ grant usage on DATABASE "STAGE_DEV" to role DATA_ENGINEER;
 grant usage on DATABASE "STAGE_FIVETRAN" to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE.RAW_STAGE to role DATA_ENGINEER;
 grant usage on SCHEMA STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
+grant usage on SCHEMA STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 grant select on all tables in schema DATA_VAULT.RAW_VAULT to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role DATA_ENGINEER;
@@ -138,6 +139,7 @@ grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DE
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on all tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
+grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 -- add usage and select for future
 use role ACCOUNTADMIN;
 grant usage on future schemas in database "STAGE" to role DATA_ENGINEER;
@@ -150,6 +152,7 @@ grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT
 grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema DATA_VAULT_DEV.BIZ_DEV to role DATA_ENGINEER;
 grant select,insert,UPDATE,DELETE,TRUNCATE on future tables in schema STAGE_DEV.RAW_STAGE_DEV to role DATA_ENGINEER;
 grant select on future tables in schema STAGE.RAW_STAGE to role DATA_ENGINEER;
+grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role DATA_ENGINEER;
 
 use role sysadmin;
 -- grant Power_Analyst role access to warehouse
