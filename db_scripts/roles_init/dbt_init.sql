@@ -42,16 +42,16 @@ begin;
     grant all privileges on DATABASE "DATA_MARTS_DEV" to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
-    grant usage on schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant usage on schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant usage on schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant usage on schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant usage on schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant usage on schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant usage on schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant usage on schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant usage on schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant usage on schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
+    grant all privileges on schema STAGE.RAW_STAGE to role identifier($role_name);
+    grant all privileges on schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
+    grant all privileges on schema DATA_VAULT.BIZ to role identifier($role_name);
+    grant all privileges on schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
+    grant all privileges on schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
+    grant all privileges on schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
+    grant all privileges on schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
+    grant all privileges on schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
+    grant all privileges on schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant all privileges on all tables in schema STAGE.RAW_STAGE to role identifier($role_name);
@@ -69,13 +69,7 @@ begin;
 
 use role ACCOUNTADMIN;
 
-alter user DBT_USER set rsa_public_key='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1IHGITztpeaj5SkcKJn8
-Gz/zqpgfPxgMEspr8f4LeOHgwC9gb9QujYfWcdCHhN3wNAnFbwbfZENGZb5n9cnc
-0S2vhM+HDyUlVen1E78isFlWMNwioGkwY0A1j33GnmrOAfYD+5zI/9BSKgMPAK5I
-sUbhSr+KdvTjfNbB45WRWR76JF7nfkcQE/S6bZUk41QmH/ZI5YsKIDPe7GIOsrfZ
-V+jun+cK3KaeOw5reJwavA3SEH+IZp2Pj077yAztHQ3TwlZ15eU5hLBojNd4G2S/
-QykRJPHJYr1HX7kvRnzIBdxADGz1TITidgBcxFHkvRgq/Gxh0MhsejxG0pBiFCxo
-nQIDAQAB';
+alter user DBT_USER set rsa_public_key='check pub key with udi';
 
 -- desc user DBT_USER
 
