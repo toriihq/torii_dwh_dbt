@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: src_raw_torii
+    description: 'torii operational source data'
+    database: STAGE_FIVETRAN
+    schema: RAW_TORII
+    tables:
+      - name: org
+        description: 'torii org table is for all the customers list tables'
