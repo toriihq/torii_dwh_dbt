@@ -41,6 +41,6 @@ final as
         s.updatetime
     from source_raw_torii s
     inner join org_transform ot
-        on (s.id = o.id))
+        on (s.id = ot.id))
 {# Final Select #}
 select * from final

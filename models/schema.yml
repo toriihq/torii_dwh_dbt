@@ -11,6 +11,9 @@ sources:
         columns:
           - name: id
             description: 'org primary key'
+            tests:
+              - unique
+              - not_null
           - name: domain
             description: 'company site domain'
           - name: companyname
