@@ -61,6 +61,9 @@ sources:
         columns:
           - name: id
             description: 'user primary key'
+            tests:
+              - unique
+              - not_null
           - name: idorg
             description: 'the organzation the user is connected to'
           - name: firstname
@@ -114,6 +117,9 @@ sources:
         columns:
           - name: id
             description: 'application primary key'
+            tests:
+              - unique
+              - not_null
           - name: idorg
             description: 'specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.'
           - name: name
@@ -161,6 +167,9 @@ sources:
         columns:
           - name: id
             description: 'role primary key'
+            tests:
+              - unique
+              - not_null
           - name: idorg
             description: 'id organzation that the role connect to'
           - name: name
@@ -190,6 +199,9 @@ sources:
         columns:
           - name: id
             description: 'audit log primary key'
+            tests:
+              - unique
+              - not_null
           - name: idtargetorg
             description: 'the target organization id the action connected to'
           - name: idtargetapp
@@ -215,6 +227,9 @@ sources:
         columns:
           - name: id
             description: 'workflow action execution primary key'
+            tests:
+              - unique
+              - not_null
           - name: idapp
             description: 'application id the action executed connected to'
           - name: idorg
