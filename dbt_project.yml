@@ -35,8 +35,10 @@ models:
   torii_dwh_dbt:
     # Config indicated by + and applies to all files under models/example/
     raw_stage_torii:
-      tags:
-        - 'raw'
+      +tags: raw
       +materialized: view
       +schema: raw_stage_dev
-
+    stage:
+      +tags: stage
+      +materialized: view
+      +schema: stage_dev

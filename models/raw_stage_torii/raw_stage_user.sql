@@ -8,8 +8,7 @@ with source_raw_torii as
 user_transform as
     (select
         t2.id,
-        trim(t2.firstname) as firstname,
-        trim(t2.lastname) as lastname,
+        concat(trim(t2.firstname), ' ', trim(t2.lastname)) as user_name,
         trim(t2.status) as status,
         trim(t2.email) as email,
         trim(t2.canonicalemail) as canonicalemail,
@@ -21,8 +20,7 @@ final as
     (select
         s.id,
         s.idorg,
-        ut.firstname,
-        ut.lastname,
+        ut.user_name,
         ut.status,
         ut.email,
         ut.canonicalemail,
