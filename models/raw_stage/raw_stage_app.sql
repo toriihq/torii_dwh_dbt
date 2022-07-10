@@ -2,8 +2,11 @@
 with source_raw_torii as
     (select
         *
-    from {{ source('raw_stage_torii', 'app') }} as t
-    limit 100),
+    from {{ source('raw_stage', 'app') }} as t
+    {% if target.name == 'dev' %}
+    limit 100
+    {% endif %}
+),
 {# Custom Hard busienss rules transforms logic CTE #}
 app_transform as
     (select
@@ -26,13 +29,11 @@ final as
         ot.name,
         ot.description,
         ot.imageurl,
-        s.rank,
         ot.searchterm,
         ot.netsuitesearchterm,
         ot.url,
         ot.pricingurl,
         ot.category,
-        s.tier,
         ot.vendor,
         s.hasintegration,
         s.ispublic,

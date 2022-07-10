@@ -2,8 +2,10 @@
 with source_raw_torii as
     (select
         *
-    from {{ source('raw_stage_torii', 'workflow_action_execution') }} as t
-    limit 100),
+    from {{ source('raw_stage', 'workflow_action_execution') }} as t
+    {% if target.name == 'dev' %}
+    limit 100
+    {% endif %}),
 {# Custom Hard busienss rules transforms logic CTE #}
 wae_transform as
     (select

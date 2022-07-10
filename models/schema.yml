@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: raw_stage_torii
+  - name: raw_stage
     description: 'torii operational source data'
     database: STAGE_FIVETRAN
     schema: RAW_TORII

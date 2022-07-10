@@ -1,0 +1,267 @@
+version: 2
+
+models:
+  - name: raw_stage_org
+    description: Raw staging layer organization table. one record per organization per load.
+    columns:
+      - name: id
+        description: org primary key
+        tests:
+          - unique
+          - not_null
+      - name: domain
+        description: company site domain
+      - name: companyname
+        description: company name
+      - name: nickname
+        description: company nick name, in catalog use
+      - name: emailalias
+        description: the signature name of an email sent by Torii, usually IT, deifned by the customer
+      - name: logourl
+        description: company url of logo
+      - name: extensionmode
+        description: defines if Torii collect data by extension, can be authenticated or unauthenticated
+      - name: defaultcurrency
+        description: the defualt expenses currency of the customer
+      - name: userlifecycleconfig
+        description: which service (gsuite, google,etc...) defines user onboarding/offboarding
+      - name: appnotinuseperiod
+        description: number of days defines an app not in use, by the customer
+      - name: trialendtime
+        description: date of when trial will end, after which customer will not be able to login
+      - name: paidplanendtime
+        description: date of when paied plan will end, after which customer will not be able to login, in contrast to isDisabled workflow and other features will continute to run
+      - name: inactivitytimeout
+        description: monitor time if user didn't touched torii GUI the session will timeout
+      - name: isdemo
+        description: indication to a demo customer account
+      - name: iswhitelabel
+        description: indication for organization to show their own logo and not use Torii's logo in internal mails
+      - name: isdisabled
+        description: indication to a disabled customer account, if disabled customer will not be able to login
+      - name: creationtime
+        description: creation record time
+      - name: updatetime
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: raw_stage_user
+    description: A user is an entity that is unique by its email. Every email we see on other systems is a user on Torii. We refer to a specific organization with idUser. one record per user per load, each user connected to one orgID
+    columns:
+      - name: id
+        description: user primary key
+        tests:
+          - unique
+          - not_null
+      - name: idorg
+        description: the organzation the user is connected to
+      - name: idrole
+        description: to which role user is connected to, can be admin, type of admin, or regular user
+      - name: offboardingstartedbyiduser
+        description: user started off-boarding process for the user
+      - name: offboardingstartedbyidworkflowaction
+        description: workflow action started off-boarding process for the user
+      - name: user_name
+        description: first_name + last_name
+      - name: status
+        description: status of the user in the system
+      - name: lifecyclestatus
+        description: life cycle status of the user. can be 3 active => offboarding => offboarded
+      - name: email
+        description: email of the user
+      - name: canonicalemail
+        description: email of the user without special characters, like . + , etc...
+      - name: photourl
+        description: workflow action started off-boarding for the user
+      - name: isrestrictedtoriiadmin
+        description: only for SE , indication permission to view other organization data restricted to a list
+      - name: isdeletedinidentitysources
+        description: indication if user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
+      - name: isexternal
+        description: users that their domain not in recognized domain, in org domain table list by the org
+      - name: istoriiadmin
+        description: only for R&D ,indication permission to view other organization data
+      - name: identitysourcesdeletiontime
+        description: time when user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
+      - name: lastseenproductupdatestime
+        description: last time saw product updates by torii new features
+      - name: offboardingstarttime
+        description: off-boarding process started time
+      - name: offboardingendtime
+        description: off-boarding process ending time
+      - name: creationtime
+        description: creation record time
+      - name: updatetime
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: raw_stage_app
+    description: An application is organization-agnostic entity. It has name, url, icon, category, vendor name and other information. one record per application per load. the source for this table is from the airTable
+    columns:
+      - name: id
+        description: application primary key
+        tests:
+          - unique
+          - not_null
+      - name: idorg
+        description: specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.
+      - name: name
+        description: name of the application
+      - name: description
+        description: application description
+      - name: imageurl
+        description: Cloudinary url to the application logo
+      - name: searchterm
+        description: support connecting to specific expense
+      - name: netsuitesearchterm
+        description: support connecting to specific expense
+      - name: url
+        description: app url
+      - name: pricingurl
+        description: url to the application pricing page
+      - name: category
+        description: app category
+      - name: vendor
+        description: vendor of the application
+      - name: hasintegration
+        description: integration to torii exist
+      - name: ispublic
+        description: apps the are familiar but not followed , will not show to user
+      - name: iscustom
+        description: depricated, historicly used to handle custom applications not from the list, if idOrg exist will contain true
+      - name: isarchived
+        description: for duplicate apps app get archived ?
+      - name: creationtime
+        description: creation record time
+      - name: updatetime
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: raw_stage_role
+    description: defines users roles in Torii application. each organization can defines its own custom roles. one record per role defined, including deleted
+    columns:
+      - name: id
+        description: role primary key
+        tests:
+          - unique
+          - not_null
+      - name: idorg
+        description: id organzation that the role connect to
+      - name: name
+        description: name of the role
+      - name: description
+        description: description of the role
+      - name: systemkey
+        description: the role description key
+      - name: isadmin
+        description: indication if the role is an admin permissions
+      - name: isinternal
+        description: indication if the role is internal role for torii
+      - name: isdeleted
+        description: indication if the role is deleted
+      - name: creationtime
+        description: creation record time
+      - name: updatetime
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: raw_stage_audit_log
+    description: actions monitored in Torii application. one record per action monitored per load.
+    columns:
+      - name: id
+        description: audit log primary key
+        tests:
+          - unique
+          - not_null
+      - name: idtargetorg
+        description: the target organization id the action connected to
+      - name: idtargetapp
+        description: the target application id the action connected to
+      - name: idtargetuser
+        description: the target user id the action connected to
+      - name: performedby
+        description: the user the action performed by
+      - name: type
+        description: type of the action performed
+      - name: properties
+        description: the action metadata monitored
+      - name: creationtime
+        description: creation record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: raw_stage_workflow_action_execution
+    description: contain one record per each action executed in workflow execution per load.
+    columns:
+      - name: id
+        description: workflow action execution primary key
+        tests:
+          - unique
+          - not_null
+      - name: idapp
+        description: application id the action executed connected to
+      - name: idorg
+        description: organization id the action executed connected to
+      - name: idaction
+        description: internal unique id of timestamp of the action
+      - name: idworkflow
+        description: connection to workflow
+      - name: idworkflowexecution
+        description: connection to workflow execution
+      - name: details
+        description: the user performed the workflow action execution
+      - name: calculatedruntimeinfo
+        description: custom action metadata required for the action execution
+      - name: actiontype
+        description: action type
+      - name: runtime
+        description: the workflow action execution run time
+      - name: runtimeinfo
+        description: action metadata required for the action execution
+      - name: runtimeerror
+        description: error that was raised during action execution process
+      - name: executionerrortype
+        description: error that was raised during action definition process
+      - name: errortime
+        description: error time record for error that was raised during action definition process
+      - name: completiontime
+        description: the workflow action execution completed time
+      - name: continueonerror
+        description: indication if continute workflow execution even if error raised on action execution
+      - name: ignoredtime
+        description: the workflow action execution ignored time
+      - name: iscompleted
+        description: indication for workflow action execution completed successfuly
+      - name: isrun
+        description: indication for did the action executed
+      - name: isignored
+        description: was the workflow action execution ignored during workflow execution
+      - name: creationtime
+        description: creation record time
+      - name: updatetime
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE

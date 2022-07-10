@@ -14,7 +14,7 @@ create warehouse DBT_WH
     warehouse_size='X-SMALL'
     auto_resume = true
     initially_suspended = true
-    auto_suspend = 0;
+    auto_suspend = 60;
 create warehouse LOOKER_WH
     warehouse_size='X-SMALL'
     auto_resume = true
