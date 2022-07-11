@@ -25,7 +25,6 @@ begin;
     to role identifier($role_name);
 
     -- grant BI_Engineer access to database
-
     grant usage on schema TORII_DWH.DATA_VAULT to role BI_ENGINEER;
     grant usage on schema TORII_DWH.DATA_MART to role BI_ENGINEER;
     grant usage on schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;

@@ -18,7 +18,7 @@ begin;
 
    -- create a user for dbt
    create user if not exists identifier($user_name)
-   password = $user_password
+{#   password = $user_password#}
    default_role = $role_name
    default_warehouse = $warehouse_name;
 
@@ -33,77 +33,58 @@ begin;
    to role identifier($role_name);
 
     -- grant dbt access to database
-    grant usage on DATABASE "STAGE_FIVETRAN" to role identifier($role_name);
-    grant all privileges on DATABASE "STAGE" to role identifier($role_name);
-    grant all privileges on DATABASE "STAGE_DEV" to role identifier($role_name);
-    grant all privileges on DATABASE "DATA_VAULT" to role identifier($role_name);
-    grant all privileges on DATABASE "DATA_VAULT_DEV" to role identifier($role_name);
-    grant all privileges on DATABASE "DATA_MARTS" to role identifier($role_name);
-    grant all privileges on DATABASE "DATA_MARTS_DEV" to role identifier($role_name);
+    grant usage on database STAGE_FIVETRAN to role identifier($role_name);
+    grant all privileges on database TORII_DWH to role identifier($role_name);
+    grant all privileges on database TORII_DWH_DEV to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
-    grant all privileges on schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant all privileges on schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant all privileges on schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant all privileges on schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant all privileges on schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant all privileges on schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
-    grant all privileges on schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant all privileges on schema STAGE_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant all privileges on schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant all privileges on schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
+    grant all privileges on schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant all privileges on schema TORII_DWH.STAGE to role identifier($role_name);
+    grant all privileges on schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant all privileges on schema TORII_DWH.DATA_MART to role identifier($role_name);
+    grant all privileges on schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
+    grant all privileges on schema TORII_DWH_DEV.DATA_VAULT_DEV to role identifier($role_name);
+    grant all privileges on schema TORII_DWH_DEV.DATA_MART_DEV to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
-    grant all privileges on all tables in schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant all privileges on all tables in schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema STAGE_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant all privileges on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
-    grant all privileges on all views in schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant all privileges on all views in schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant all privileges on all views in schema STAGE_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on all views in schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant all privileges on all views in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant all privileges on all views in schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant all privileges on all views in schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant all privileges on all views in schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant all privileges on all views in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant all privileges on all views in schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant all privileges on all views in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH.STAGE to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH.DATA_MART to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.DATA_VAULT_DEV to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.DATA_MART_DEV to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH.STAGE to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH.DATA_MART to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.DATA_VAULT_DEV to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.DATA_MART_DEV to role identifier($role_name);
 {#future#}
     use role ACCOUNTADMIN;
 
     grant select on future tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
-    grant all privileges on future tables in schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant all privileges on future tables in schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema STAGE_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant all privileges on future tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
-    grant all privileges on future views in schema STAGE.RAW_STAGE to role identifier($role_name);
-    grant all privileges on future views in schema STAGE_DEV.RAW_STAGE_DEV to role identifier($role_name);
-    grant all privileges on future views in schema STAGE_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on future views in schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant all privileges on future views in schema DATA_VAULT_DEV.RAW_VAULT_DEV to role identifier($role_name);
-    grant all privileges on future views in schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant all privileges on future views in schema DATA_VAULT_DEV.BIZ_DEV to role identifier($role_name);
-    grant all privileges on future views in schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant all privileges on future views in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant all privileges on future views in schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
-    grant all privileges on future views in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH.STAGE to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH.DATA_MART to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.DATA_VAULT_DEV to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.DATA_MART_DEV to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH.STAGE to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH.DATA_MART to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.DATA_VAULT_DEV to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.DATA_MART_DEV to role identifier($role_name);
 
 
  commit;
