@@ -25,17 +25,29 @@ begin;
     to role identifier($role_name);
 
     -- grant Power_Analyst access to database
-    grant usage on DATABASE "DATA_VAULT" to role identifier($role_name);
-    grant usage on DATABASE "STAGE" to role identifier($role_name);
-    grant usage on DATABASE "STAGE_FIVETRAN" to role identifier($role_name);
-    grant usage on schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant usage on schema DATA_VAULT.BIZ to role identifier($role_name);
+    grant usage on database STAGE_FIVETRAN to role identifier($role_name);
+    grant usage on schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant usage on schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant usage on schema TORII_DWH.STAGE to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant usage on schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
-    grant select on all tables in schema DATA_VAULT.BIZ to role identifier($role_name);
-    grant select on all tables in schema DATA_VAULT.RAW_VAULT to role identifier($role_name);
-    grant select on all tables in schema STAGE.RAW_STAGE to role identifier($role_name);
+    grant select on all tables in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant select on all tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant select on all tables in schema TORII_DWH.STAGE to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
+    grant select on all views in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant select on all views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant select on all views in schema TORII_DWH.STAGE to role identifier($role_name);
+    -- gratn future on tables/schemas
+    use role ACCOUNTADMIN;
+    grant select on future tables in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant select on future tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant select on future tables in schema TORII_DWH.STAGE to role identifier($role_name);
+    grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
+    grant select on future tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
+    grant select on future views in schema TORII_DWH.DATA_VAULT to role identifier($role_name);
+    grant select on future views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
+    grant select on future views in schema TORII_DWH.STAGE to role identifier($role_name);
 
 commit;
