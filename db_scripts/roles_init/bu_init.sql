@@ -23,10 +23,13 @@ begin;
    to role identifier($role_name);
 
     -- grant bu access to database
-    grant USAGE on database "DATA_MARTS" to role identifier($role_name);
-    grant USAGE on schema "DATA_MARTS"."MART_GLOBAL" to role identifier($role_name);
-    grant USAGE on schema "DATA_MARTS"."MART_ACTION_AUDIT" to role identifier($role_name);
-    grant select on all tables in schema DATA_MARTS.MART_ACTION_AUDIT to role identifier($role_name);
-    grant select on all tables in schema DATA_MARTS.MART_GLOBAL to role identifier($role_name);
+    grant USAGE on database torii_dwh to role identifier($role_name);
+    grant USAGE on schema torii_dwh.data_mart to role identifier($role_name);
+    grant select on all tables in schema torii_dwh.data_mart to role identifier($role_name);
+    grant select on all views in schema torii_dwh.data_mart to role identifier($role_name);
+    -- grant bu access to database future tables
+    use role ACCOUNTADMIN;
+    grant select on future tables in schema torii_dwh.data_mart to role identifier($role_name);
+    grant select on future views in schema torii_dwh.data_mart to role identifier($role_name);
 
 commit;
