@@ -3,7 +3,7 @@ with source_raw_torii as
     (select
         *
     from {{ source('raw_stage', 'user') }} as t
-    {% if target.name == 'dev' %}
+    {% if target.name == 'raw_stage_dev' %}
     limit 100
     {% endif %}
     ),
@@ -16,7 +16,13 @@ user_transform as
         trim(t2.email) as email,
         trim(t2.canonicalemail) as canonicalemail,
         trim(t2.photourl) as photourl,
-        trim(t2.lifecyclestatus) as lifecyclestatus
+        trim(t2.lifecyclestatus) as lifecyclestatus,
+        to_date(t2.identitysourcesdeletiontime) as identitysourcesdeletiontime,
+        to_date(t2.lastseenproductupdatestime) as lastseenproductupdatestime,
+        to_date(t2.offboardingstarttime) as offboardingstarttime,
+        to_date(t2.offboardingendtime) as offboardingendtime,
+        to_date(t2.creationtime) as creationtime,
+        to_date(t2.updatetime) as updatetime
     from source_raw_torii t2),
 {# Final CTE #}
 final as
@@ -36,12 +42,12 @@ final as
         s.isdeletedinidentitysources,
         s.isexternal,
         s.istoriiadmin,
-        s.identitysourcesdeletiontime,
-        s.lastseenproductupdatestime,
-        s.offboardingstarttime,
-        s.offboardingendtime,
-        s.creationtime,
-        s.updatetime
+        ut.identitysourcesdeletiontime,
+        ut.lastseenproductupdatestime,
+        ut.offboardingstarttime,
+        ut.offboardingendtime,
+        ut.creationtime,
+        ut.updatetime
     from source_raw_torii s
     inner join user_transform ut
         on (s.id = ut.id))

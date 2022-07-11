@@ -29,32 +29,32 @@ begin;
     grant usage on SCHEMA TORII_DWH.RAW_STAGE to role identifier($role_name);
     grant usage on SCHEMA STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant usage on SCHEMA STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
-    grant usage on SCHEMA TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
-    grant usage on SCHEMA TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant usage on SCHEMA TORII_DWH_DEV.STAGE to role identifier($role_name);
+    grant usage on SCHEMA TORII_DWH_DEV.RAW_STAGE to role identifier($role_name);
 
     grant all privileges on all tables in schema TORII_DWH.STAGE to role identifier($role_name);
     grant all privileges on all tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
-    grant all privileges on all tables in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on all tables in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.STAGE to role identifier($role_name);
+    grant all privileges on all tables in schema TORII_DWH_DEV.RAW_STAGE to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant select on all tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant all privileges on all views in schema TORII_DWH.STAGE to role identifier($role_name);
     grant all privileges on all views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
-    grant all privileges on all views in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on all views in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.STAGE to role identifier($role_name);
+    grant all privileges on all views in schema TORII_DWH_DEV.RAW_STAGE to role identifier($role_name);
 
 {#future#}
     use role accountadmin;
     grant all privileges on future tables in schema TORII_DWH.STAGE to role identifier($role_name);
     grant all privileges on future tables in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
-    grant all privileges on future tables in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on future tables in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.STAGE to role identifier($role_name);
+    grant all privileges on future tables in schema TORII_DWH_DEV.RAW_STAGE to role identifier($role_name);
     grant select on future tables in schema STAGE_FIVETRAN.RAW_TORII to role identifier($role_name);
     grant select on future tables in schema STAGE_FIVETRAN.RAW_SALESFORCE to role identifier($role_name);
     grant all privileges on future views in schema TORII_DWH.STAGE to role identifier($role_name);
     grant all privileges on future views in schema TORII_DWH.RAW_STAGE to role identifier($role_name);
-    grant all privileges on future views in schema TORII_DWH_DEV.STAGE_DEV to role identifier($role_name);
-    grant all privileges on future views in schema TORII_DWH_DEV.RAW_STAGE_DEV to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.STAGE to role identifier($role_name);
+    grant all privileges on future views in schema TORII_DWH_DEV.RAW_STAGE to role identifier($role_name);
 
 
 commit;

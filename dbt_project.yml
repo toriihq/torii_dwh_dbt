@@ -44,7 +44,7 @@ models:
     raw_stage:
       +tags: raw
       +materialized: view
-      +schema: raw
+      +schema: raw_stage
     stage:
       +tags: stage
       enabled: true

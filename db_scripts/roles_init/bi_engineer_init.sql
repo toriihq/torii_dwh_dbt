@@ -27,17 +27,17 @@ begin;
     -- grant BI_Engineer access to database
     grant usage on schema TORII_DWH.DATA_VAULT to role BI_ENGINEER;
     grant usage on schema TORII_DWH.DATA_MART to role BI_ENGINEER;
-    grant usage on schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;
-    grant usage on schema TORII_DWH_DEV.DATA_MART_DEV to role BI_ENGINEER;
-    grant select on all tables in schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;
-    grant select on all tables in schema TORII_DWH_DEV.DATA_MART_DEV to role BI_ENGINEER;
-    grant select on all views in schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;
-    grant select on all views in schema TORII_DWH_DEV.DATA_MART_DEV to role BI_ENGINEER;
+    grant usage on schema TORII_DWH_DEV.DATA_VAULT to role BI_ENGINEER;
+    grant usage on schema TORII_DWH_DEV.DATA_MART to role BI_ENGINEER;
+    grant select on all tables in schema TORII_DWH_DEV.DATA_VAULT to role BI_ENGINEER;
+    grant select on all tables in schema TORII_DWH_DEV.DATA_MART to role BI_ENGINEER;
+    grant select on all views in schema TORII_DWH_DEV.DATA_VAULT to role BI_ENGINEER;
+    grant select on all views in schema TORII_DWH_DEV.DATA_MART to role BI_ENGINEER;
     -- grant usage on future tables/views
     use role ACCOUNTADMIN;
-    grant select on future tables in schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;
-    grant select on future tables in schema TORII_DWH_DEV.DATA_MART_DEV to role BI_ENGINEER;
-    grant select on future views in schema TORII_DWH_DEV.DATA_VAULT_DEV to role BI_ENGINEER;
-    grant select on future views in schema TORII_DWH_DEV.DATA_MART_DEV to role BI_ENGINEER;
+    grant select on future tables in schema TORII_DWH_DEV.DATA_VAULT to role BI_ENGINEER;
+    grant select on future tables in schema TORII_DWH_DEV.DATA_MART to role BI_ENGINEER;
+    grant select on future views in schema TORII_DWH_DEV.DATA_VAULT to role BI_ENGINEER;
+    grant select on future views in schema TORII_DWH_DEV.DATA_MART to role BI_ENGINEER;
 
 commit;
