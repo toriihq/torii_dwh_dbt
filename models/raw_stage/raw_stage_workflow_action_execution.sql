@@ -14,7 +14,7 @@ wae_transform as
         to_variant(parse_json(t2.details)) as details,
         to_variant(parse_json(t2.calculatedruntimeinfo)) as calculatedruntimeinfo,
         trim(t2.actiontype) as actiontype,
-        trim(t2.runtimeinfo) as runtimeinfo,
+        to_variant(parse_json(t2.runtimeinfo)) as runtimeinfo,
         trim(t2.runtimeerror) as runtimeerror,
         trim(t2.executionerrortype) as executionerrortype,
         to_date(t2.creationtime) as creationtime,
