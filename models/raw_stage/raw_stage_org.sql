@@ -3,7 +3,7 @@ with source_raw_torii as
     (select
         *
     from {{ source('raw_stage', 'org') }} as t
-    {% if target.name == 'raw_stage_dev' %}
+    {% if target.name == 'dev' %}
     limit 100
     {% endif %}
 ),
@@ -43,8 +43,8 @@ final as
         s.isdemo as IND_DEMO,
         s.iswhitelabel as IND_WHITE_LABEL,
         s.isdisabled as IND_DISABLED,
-        ot.creationtime as CREATIONTIME,
-        ot.updatetime as UPDATETIME
+        ot.creationtime as DT_CREATION,
+        ot.updatetime as DT_UPDATE
     from source_raw_torii s
     inner join org_transform ot
         on (s.id = ot.id))

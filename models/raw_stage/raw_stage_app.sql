@@ -3,7 +3,7 @@ with source_raw_torii as
     (select
         *
     from {{ source('raw_stage', 'app') }} as t
-    {% if target.name == 'raw_stage_dev' %}
+    {% if target.name == 'dev' %}
     limit 100
     {% endif %}
 ),
@@ -26,23 +26,23 @@ app_transform as
 {# Final CTE #}
 final as
     (select
-        s.id as bk_app,
-        s.idorg as bk_org,
-        ot.name as bk_app_name,
-        ot.description as app_description,
-        ot.imageurl as app_image_url,
-        ot.searchterm as search_term,
-        ot.netsuitesearchterm as net_suite_search_term,
-        ot.url as app_url,
-        ot.pricingurl as app_pricing_url,
-        ot.category as category,
-        ot.vendor as vendor,
-        s.hasintegration as ind_integration,
-        s.ispublic as ind_public,
-        s.iscustom as ind_custom,
-        s.isarchived as ind_archived,
-        ot.creationtime as dt_creation,
-        ot.updatetime as dt_update
+        s.id as BK_APP,
+        s.idorg as BK_ORG,
+        ot.name as BK_APP_NAME,
+        ot.description as APP_DESCRIPTION,
+        ot.imageurl as APP_IMAGE_URL,
+        ot.searchterm as SEARCH_TERM,
+        ot.netsuitesearchterm as NET_SUITE_SEARCH_TERM,
+        ot.url as APP_URL,
+        ot.pricingurl as APP_PRICING_URL,
+        ot.category as CATEGORY,
+        ot.vendor as VENDOR,
+        s.hasintegration as IND_INTEGRATION,
+        s.ispublic as IND_PUBLIC,
+        s.iscustom as IND_CUSTOM,
+        s.isarchived as IND_ARCHIVED,
+        ot.creationtime as DT_CREATION,
+        ot.updatetime as DT_UPDATE
     from source_raw_torii s
     inner join app_transform ot
         on (s.id = ot.id))

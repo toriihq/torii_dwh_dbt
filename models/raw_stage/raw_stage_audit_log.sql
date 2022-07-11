@@ -3,7 +3,7 @@ with source_raw_torii as
     (select
         *
     from {{ source('raw_stage', 'audit_log') }} as t
-    {% if target.name == 'raw_stage_dev' %}
+    {% if target.name == 'dev' %}
     limit 100
     {% endif %}
 ),
@@ -18,14 +18,14 @@ user_transform as
 {# Final CTE #}
 final as
     (select
-        s.id as bk_audit_log,
-        s.idtargetorg as bk_target_org,
-        s.idtargetapp as bk_target_app,
-        s.idtargetuser as bk_target_user,
-        s.performedby as bk_user_ran_action,
-        ut.type as type,
-        ut.properties as properties,
-        s.creationtime as dt_creation
+        s.id as BK_AUDIT_LOG,
+        s.idtargetorg as BK_TARGET_ORG,
+        s.idtargetapp as BK_TARGET_APP,
+        s.idtargetuser as BK_TARGET_USER,
+        s.performedby as BK_USER_RAN_ACTION,
+        ut.type as TYPE,
+        ut.properties as PROPERTIES,
+        s.creationtime as DT_CREATION
     from source_raw_torii s
     inner join user_transform ut
         on (s.id = ut.id))

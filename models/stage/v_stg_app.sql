@@ -1,31 +1,31 @@
 {%- set yaml_metadata -%}
-source_model: 'raw_stage_org'
+source_model: 'raw_stage_app'
 derived_columns:
-    RECORD_SOURCE: '!raw_stage_org'
+    RECORD_SOURCE: '!raw_stage_app'
     EFFECTIVE_FROM: DT_UPDATE
     START_DATE: DT_CREATION
 
 hashed_columns:
+    HK_APP: BK_APP
     HK_ORG: BK_ORG
-    HDIFF_ORG:
+    HDIFF_APP:
         is_hashdiff: true
         columns:
+            - BK_APP
             - BK_ORG
-            - ORG_DOMAIN
-            - COMPANY_NAME
-            - ORG_NICK_NAME
-            - ORG_EMAIL_ALIAS
-            - ORG_LOGO_URL
-            - EXTENSION_MODE
-            - DEFAULT_CURRENCY
-            - USER_LIFE_CYCLE_CONFIG
-            - APP_NOT_IN_USER_PERIOD
-            - DT_TRIAL_END
-            - DT_PAID_PLAN
-            - INACTIVITY_TIMEOUT
-            - IND_DEMO
-            - IND_WHITE_LABEL
-            - IND_DISABLED
+            - BK_APP_NAME
+            - APP_DESCRIPTION
+            - APP_IMAGE_URL
+            - SEARCH_TERM
+            - NET_SUITE_SEARCH_TERM
+            - APP_URL
+            - APP_PRICING_URL
+            - CATEGORY
+            - VENDOR
+            - IND_INTEGRATION
+            - IND_PUBLIC
+            - IND_CUSTOM
+            - IND_ARCHIVED
             - EFFECTIVE_FROM
 
 {%- endset -%}
@@ -45,24 +45,24 @@ WITH staging AS (
 )
 
 SELECT
+    HK_APP,
     HK_ORG,
-    HDIFF_ORG,
+    HDIFF_APP,
+    BK_APP,
     BK_ORG,
-    ORG_DOMAIN,
-    COMPANY_NAME,
-    ORG_NICK_NAME,
-    ORG_EMAIL_ALIAS,
-    ORG_LOGO_URL,
-    EXTENSION_MODE,
-    DEFAULT_CURRENCY,
-    USER_LIFE_CYCLE_CONFIG,
-    APP_NOT_IN_USER_PERIOD,
-    DT_TRIAL_END,
-    DT_PAID_PLAN,
-    INACTIVITY_TIMEOUT,
-    IND_DEMO,
-    IND_WHITE_LABEL,
-    IND_DISABLED,
+    BK_APP_NAME,
+    APP_DESCRIPTION,
+    APP_IMAGE_URL,
+    SEARCH_TERM,
+    NET_SUITE_SEARCH_TERM,
+    APP_URL,
+    APP_PRICING_URL,
+    CATEGORY,
+    VENDOR,
+    IND_INTEGRATION,
+    IND_PUBLIC,
+    IND_CUSTOM,
+    IND_ARCHIVED,
     DT_CREATION,
     DT_UPDATE,
     RECORD_SOURCE,
