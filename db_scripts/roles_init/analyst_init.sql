@@ -26,10 +26,11 @@ begin;
    to role identifier($role_name);
 
     -- grant Analyst access to database
-    grant usage on DATABASE "DATA_MARTS_DEV" to role identifier($role_name);
-    grant usage on schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
-    grant usage on schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant select on all tables in schema DATA_MARTS_DEV.MART_ACTION_AUDIT_DEV to role identifier($role_name);
-    grant select on all tables in schema DATA_MARTS_DEV.MART_GLOBAL_DEV to role identifier($role_name);
+    grant usage on DATABASE torii_dwh_dev to role identifier($role_name);
+    grant usage on schema torii_dwh_dev.DATA_MART_DEV to role identifier($role_name);
+    grant select on all tables in schema torii_dwh_dev.DATA_MART_DEV to role identifier($role_name);
+    -- grant on future table
+    use role ACCOUNTADMIN;
+    grant select on future tables in schema torii_dwh_dev.DATA_MART_DEV to role identifier($role_name);
 
 commit;
