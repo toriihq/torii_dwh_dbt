@@ -6,10 +6,16 @@ models:
     columns:
       - name: hk_org
         description: hashed org key
+        tests:
+          - unique
+          - not_null
       - name: hdiff_org
         description: hashed difference org value
       - name: bk_org
         description: organization business key
+        tests:
+          - unique
+          - not_null
       - name: org_domain
         description: company site domain
       - name: company_name
@@ -53,6 +59,9 @@ models:
     columns:
     - name: hk_user
       description: hashed key of the user id
+      tests:
+        - unique
+        - not_null
     - name: hk_org
       description: hashed key of the organization the user is connected to
     - name: hk_role
@@ -67,6 +76,9 @@ models:
       description: hashed difference key for user off boarding details
     - name: bk_user
       description: user business key
+      tests:
+        - unique
+        - not_null
     - name: bk_org
       description: the organization the user is connected to
     - name: bk_role
@@ -118,12 +130,18 @@ models:
     columns:
     - name: hk_app
       description: application hashed key
+      tests:
+        - unique
+        - not_null
     - name: hk_org
       description: organization hashed key
     - name: hdiff_app
       description: hashed difference key for application details
     - name: bk_app
       description: application primary key
+      tests:
+        - unique
+        - not_null
     - name: bk_org
       description: specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.
     - name: bk_app_name
@@ -167,12 +185,18 @@ models:
     columns:
       - name: hk_role
         description: hashed key role
+        tests:
+          - unique
+          - not_null
       - name: hk_org
         description: hashed key organization
       - name: hdiff_role
         description: hashed difference key role details
       - name: bk_role
         description: role primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_org
         description: id organization that the role connect to
       - name: role_name

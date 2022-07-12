@@ -7,6 +7,9 @@ models:
     columns:
       - name: bk_org
         description: org primary key
+        tests:
+          - unique
+          - not_null
       - name: org_domain
         description: company site domain
       - name: company_name
@@ -39,8 +42,12 @@ models:
         description: indication to a disabled customer account, if disabled customer will not be able to login
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: dt_update
         description: last update record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
@@ -52,6 +59,9 @@ models:
     columns:
       - name: bk_user
         description: user primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_org
         description: the organzation the user is connected to
       - name: bk_role
@@ -90,8 +100,12 @@ models:
         description: off-boarding process ending time
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: dt_update
         description: last update record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
@@ -103,6 +117,9 @@ models:
     columns:
       - name: bk_app
         description: application primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_org
         description: specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.
       - name: bk_app_name
@@ -133,8 +150,12 @@ models:
         description: for duplicate apps app get archived ?
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: dt_update
         description: last update record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
@@ -146,6 +167,9 @@ models:
     columns:
       - name: bk_role
         description: role primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_org
         description: id organzation that the role connect to
       - name: role_name
@@ -162,8 +186,12 @@ models:
         description: indication if the role is deleted
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: dt_update
         description: last update record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
@@ -175,6 +203,9 @@ models:
     columns:
       - name: bk_audit_log
         description: audit log primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_target_org
         description: the target organization id the action connected to
       - name: bk_target_app
@@ -189,6 +220,8 @@ models:
         description: the action metadata monitored
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
@@ -200,6 +233,9 @@ models:
     columns:
       - name: bk_workflow_action_execution
         description: workflow action execution primary key
+        tests:
+          - unique
+          - not_null
       - name: bk_app
         description: application id the action executed connected to
       - name: bk_org
@@ -240,8 +276,12 @@ models:
         description: was the workflow action execution ignored during workflow execution
       - name: dt_creation
         description: creation record time
+        tests:
+          - not_null
       - name: dt_update
         description: last update record time
+        tests:
+          - not_null
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
       - name: load_date
