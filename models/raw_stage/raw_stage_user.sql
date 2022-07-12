@@ -2,7 +2,7 @@
 with source_raw_torii as
     (select
         *
-    from {{ source('raw_stage', 'user') }} as t
+    from {{ source('raw_torii', 'user') }} as t
     {% if target.name == 'dev' %}
     limit 100
     {% endif %}

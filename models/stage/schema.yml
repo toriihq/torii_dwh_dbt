@@ -1,0 +1,199 @@
+version: 2
+
+models:
+  - name: v_stg_org
+    description: 'Organization (or: Org) is a customer which is a company. Each Org has information about their name, domains, preferences, etc. one record per organization, includes demos & disabled. staging layer'
+    columns:
+      - name: hk_org
+        description: hashed org key
+      - name: hdiff_org
+        description: hashed difference org value
+      - name: bk_org
+        description: organization business key
+      - name: org_domain
+        description: company site domain
+      - name: company_name
+        description: company name
+      - name: org_nick_name
+        description: company nick name, in catalog use
+      - name: org_email_alias
+        description: the signature name of an email sent by Torii, usually IT, defined by the customer
+      - name: org_logo_url
+        description: company url of logo
+      - name: extension_mode
+        description: defines if Torii collect data by extension, can be authenticated or unauthenticated
+      - name: default_currency
+        description: the default expenses currency of the customer
+      - name: user_life_cycle_config
+        description: which service (gsuite, google,etc...) defines user onboarding/offboarding
+      - name: app_not_in_user_period
+        description: number of days defines an app not in use, by the customer
+      - name: dt_trial_end
+        description: date of when trial will end, after which customer will not be able to login
+      - name: dt_paid_plan
+        description: date of when paid plan will end, after which customer will not be able to login, in contrast to isDisabled workflow and other features will continute to run
+      - name: inactivity_timeout
+        description: monitor time if user didn't touched torii GUI the session will timeout
+      - name: ind_demo
+        description: indication to a demo customer account
+      - name: ind_white_label
+        description: indication for organization to show their own logo and not use Torii's logo in internal mails
+      - name: ind_disabled
+        description: indication to a disabled customer account, if disabled customer will not be able to login
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+      - name: start_date
+        description: is our business start date for a given record, and it makes sense to derive this from the entity recorded start date will remain constant
+  - name: v_stg_user
+    description: A user is an entity that is unique by its email. Every email we see on other systems is a user on Torii. We refer to a specific organization with idUser. one record per user, each user connected to one orgID. staging layer
+    columns:
+    - name: hk_user
+      description: hashed key of the user id
+    - name: hk_org
+      description: hashed key of the organization the user is connected to
+    - name: hk_role
+      description: hashed key of the role user is connected to
+    - name: hk_off_boarding_started_by_user
+      description: hashed key user started off-boarding process for the user
+    - name: hk_off_boarding_started_by_workflow_action
+      description: hashed key workflow action started off-boarding process for the user
+    - name: hdiff_user_details
+      description: hashed difference key for user details
+    - name: hdiff_user_offboarding
+      description: hashed difference key for user off boarding details
+    - name: bk_user
+      description: user business key
+    - name: bk_org
+      description: the organization the user is connected to
+    - name: bk_role
+      description: to which role user is connected to, can be admin, type of admin, or regular user
+    - name: bk_off_boarding_started_by_user
+      description: user started off-boarding process for the user
+    - name: bk_off_boarding_started_by_workflow_action
+      description: na
+    - name: user_name
+      description: first_name + last_name
+    - name: user_status
+      description: status of the user in the system
+    - name: life_cycle_status
+      description: life cycle status of the user. can be 3 active => offboarding => offboarded
+    - name: user_email
+      description: email of the user
+    - name: user_canonical_email
+      description: email of the user without special characters, like . + , etc...
+    - name: user_photo_url
+      description: workflow action started off-boarding for the user
+    - name: ind_restricted_torii_admin
+      description: only for SE , indication permission to view other organization data restricted to a list
+    - name: ind_deleted_inidentity_sources
+      description: indication if user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
+    - name: ind_user_external
+      description: users that their domain not in recognized domain, in org domain table list by the org
+    - name: ind_torii_admin
+      description: only for R&D ,indication permission to view other organization data
+    - name: dt_identity_sources_deletion
+      description: time when user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
+    - name: dt_last_seen_product_updates
+      description: last time saw product updates by torii new features
+    - name: dt_off_boarding_start
+      description: off-boarding process started time
+    - name: dt_off_boarding_end
+      description: off-boarding process ending time
+    - name: dt_creation
+      description: creation record time
+    - name: dt_update
+      description: last update record time
+    - name: record_source
+      description: is defined as a constant by prefixing the constant value with !. the record table source
+    - name: load_date
+      description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+    - name: effective_from
+      description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: v_stg_app
+    description: An application is organization-agnostic entity. It has name, url, icon, category, vendor name and other information. one record per application. the source for this table is from the airTable. staging layer
+    columns:
+    - name: hk_app
+      description: application hashed key
+    - name: hk_org
+      description: organization hashed key
+    - name: hdiff_app
+      description: hashed difference key for application details
+    - name: bk_app
+      description: application primary key
+    - name: bk_org
+      description: specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.
+    - name: bk_app_name
+      description: name of the application
+    - name: app_description
+      description: application description
+    - name: app_image_url
+      description: Cloudinary url to the application logo
+    - name: search_term
+      description: support connecting to specific expense
+    - name: net_suite_search_term
+      description: support connecting to specific expense
+    - name: app_url
+      description: app url
+    - name: app_pricing_url
+      description: url to the application pricing page
+    - name: category
+      description: app category
+    - name: vendor
+      description: vendor of the application
+    - name: ind_integration
+      description: integration to torii exist
+    - name: ind_public
+      description: apps the are familiar but not followed , will not show to user
+    - name: ind_custom
+      description: depricated, historicly used to handle custom applications not from the list, if idOrg exist will contain true
+    - name: ind_archived
+      description: for duplicate apps app get archived ?
+    - name: dt_creation
+      description: creation record time
+    - name: dt_update
+      description: last update record time
+    - name: record_source
+      description: is defined as a constant by prefixing the constant value with !. the record table source
+    - name: load_date
+      description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+    - name: effective_from
+      description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: v_stg_role
+    description: defines users roles in Torii application. each organization can defines its own custom roles. one record per role defined, including deleted. staging layer
+    columns:
+      - name: hk_role
+        description: hashed key role
+      - name: hk_org
+        description: hashed key organization
+      - name: hdiff_role
+        description: hashed difference key role details
+      - name: bk_role
+        description: role primary key
+      - name: bk_org
+        description: id organization that the role connect to
+      - name: role_name
+        description: name of the role
+      - name: role_description
+        description: description of the role
+      - name: systemkey
+        description: the role description key
+      - name: ind_admin
+        description: indication if the role is an admin permissions
+      - name: ind_internal
+        description: indication if the role is internal role for torii
+      - name: ind_deleted
+        description: indication if the role is deleted
+      - name: dt_creation
+        description: creation record time
+      - name: dt_update
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE

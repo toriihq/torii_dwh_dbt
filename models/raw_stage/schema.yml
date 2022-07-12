@@ -3,45 +3,43 @@ version: 2
 models:
   - name: raw_stage_org
     description: Raw staging layer organization table. one record per organization per load.
+    schema: raw_stage
     columns:
-      - name: id
+      - name: bk_org
         description: org primary key
-        tests:
-          - unique
-          - not_null
-      - name: domain
+      - name: org_domain
         description: company site domain
-      - name: companyname
+      - name: company_name
         description: company name
-      - name: nickname
+      - name: org_nick_name
         description: company nick name, in catalog use
-      - name: emailalias
+      - name: org_email_alias
         description: the signature name of an email sent by Torii, usually IT, deifned by the customer
-      - name: logourl
+      - name: org_logo_url
         description: company url of logo
-      - name: extensionmode
+      - name: extension_mode
         description: defines if Torii collect data by extension, can be authenticated or unauthenticated
-      - name: defaultcurrency
+      - name: default_currency
         description: the defualt expenses currency of the customer
-      - name: userlifecycleconfig
+      - name: user_life_cycle_config
         description: which service (gsuite, google,etc...) defines user onboarding/offboarding
-      - name: appnotinuseperiod
+      - name: app_not_in_user_period
         description: number of days defines an app not in use, by the customer
-      - name: trialendtime
+      - name: dt_trial_end
         description: date of when trial will end, after which customer will not be able to login
-      - name: paidplanendtime
+      - name: dt_paid_plan
         description: date of when paied plan will end, after which customer will not be able to login, in contrast to isDisabled workflow and other features will continute to run
-      - name: inactivitytimeout
+      - name: inactivity_timeout
         description: monitor time if user didn't touched torii GUI the session will timeout
-      - name: isdemo
+      - name: ind_demo
         description: indication to a demo customer account
-      - name: iswhitelabel
+      - name: ind_white_label
         description: indication for organization to show their own logo and not use Torii's logo in internal mails
-      - name: isdisabled
+      - name: ind_disabled
         description: indication to a disabled customer account, if disabled customer will not be able to login
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
-      - name: updatetime
+      - name: dt_update
         description: last update record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
@@ -52,50 +50,47 @@ models:
   - name: raw_stage_user
     description: A user is an entity that is unique by its email. Every email we see on other systems is a user on Torii. We refer to a specific organization with idUser. one record per user per load, each user connected to one orgID
     columns:
-      - name: id
+      - name: bk_user
         description: user primary key
-        tests:
-          - unique
-          - not_null
-      - name: idorg
+      - name: bk_org
         description: the organzation the user is connected to
-      - name: idrole
+      - name: bk_role
         description: to which role user is connected to, can be admin, type of admin, or regular user
-      - name: offboardingstartedbyiduser
+      - name: bk_off_boarding_started_by_user
         description: user started off-boarding process for the user
-      - name: offboardingstartedbyidworkflowaction
+      - name: bk_off_boarding_started_by_workflow_action
         description: workflow action started off-boarding process for the user
       - name: user_name
         description: first_name + last_name
-      - name: status
+      - name: user_status
         description: status of the user in the system
-      - name: lifecyclestatus
+      - name: life_cycle_status
         description: life cycle status of the user. can be 3 active => offboarding => offboarded
-      - name: email
+      - name: user_email
         description: email of the user
-      - name: canonicalemail
+      - name: user_canonical_email
         description: email of the user without special characters, like . + , etc...
-      - name: photourl
+      - name: user_photo_url
         description: workflow action started off-boarding for the user
-      - name: isrestrictedtoriiadmin
+      - name: ind_restricted_torii_admin
         description: only for SE , indication permission to view other organization data restricted to a list
-      - name: isdeletedinidentitysources
+      - name: ind_deleted_inidentity_sources
         description: indication if user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
-      - name: isexternal
+      - name: ind_user_external
         description: users that their domain not in recognized domain, in org domain table list by the org
-      - name: istoriiadmin
+      - name: ind_torii_admin
         description: only for R&D ,indication permission to view other organization data
-      - name: identitysourcesdeletiontime
+      - name: dt_identity_sources_deletion
         description: time when user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
-      - name: lastseenproductupdatestime
+      - name: dt_last_seen_product_updates
         description: last time saw product updates by torii new features
-      - name: offboardingstarttime
+      - name: dt_off_boarding_start
         description: off-boarding process started time
-      - name: offboardingendtime
+      - name: dt_off_boarding_end
         description: off-boarding process ending time
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
-      - name: updatetime
+      - name: dt_update
         description: last update record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
@@ -106,42 +101,39 @@ models:
   - name: raw_stage_app
     description: An application is organization-agnostic entity. It has name, url, icon, category, vendor name and other information. one record per application per load. the source for this table is from the airTable
     columns:
-      - name: id
+      - name: bk_app
         description: application primary key
-        tests:
-          - unique
-          - not_null
-      - name: idorg
+      - name: bk_org
         description: specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.
-      - name: name
+      - name: bk_app_name
         description: name of the application
-      - name: description
+      - name: app_description
         description: application description
-      - name: imageurl
+      - name: app_image_url
         description: Cloudinary url to the application logo
-      - name: searchterm
+      - name: search_term
         description: support connecting to specific expense
-      - name: netsuitesearchterm
+      - name: net_suite_search_term
         description: support connecting to specific expense
-      - name: url
+      - name: app_url
         description: app url
-      - name: pricingurl
+      - name: app_pricing_url
         description: url to the application pricing page
       - name: category
         description: app category
       - name: vendor
         description: vendor of the application
-      - name: hasintegration
+      - name: ind_integration
         description: integration to torii exist
-      - name: ispublic
+      - name: ind_public
         description: apps the are familiar but not followed , will not show to user
-      - name: iscustom
+      - name: ind_custom
         description: depricated, historicly used to handle custom applications not from the list, if idOrg exist will contain true
-      - name: isarchived
+      - name: ind_archived
         description: for duplicate apps app get archived ?
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
-      - name: updatetime
+      - name: dt_update
         description: last update record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
@@ -152,28 +144,25 @@ models:
   - name: raw_stage_role
     description: defines users roles in Torii application. each organization can defines its own custom roles. one record per role defined, including deleted
     columns:
-      - name: id
+      - name: bk_role
         description: role primary key
-        tests:
-          - unique
-          - not_null
-      - name: idorg
+      - name: bk_org
         description: id organzation that the role connect to
-      - name: name
+      - name: role_name
         description: name of the role
-      - name: description
+      - name: role_description
         description: description of the role
       - name: systemkey
         description: the role description key
-      - name: isadmin
+      - name: ind_admin
         description: indication if the role is an admin permissions
-      - name: isinternal
+      - name: ind_internal
         description: indication if the role is internal role for torii
-      - name: isdeleted
+      - name: ind_deleted
         description: indication if the role is deleted
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
-      - name: updatetime
+      - name: dt_update
         description: last update record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
@@ -184,24 +173,21 @@ models:
   - name: raw_stage_audit_log
     description: actions monitored in Torii application. one record per action monitored per load.
     columns:
-      - name: id
+      - name: bk_audit_log
         description: audit log primary key
-        tests:
-          - unique
-          - not_null
-      - name: idtargetorg
+      - name: bk_target_org
         description: the target organization id the action connected to
-      - name: idtargetapp
+      - name: bk_target_app
         description: the target application id the action connected to
-      - name: idtargetuser
+      - name: bk_target_user
         description: the target user id the action connected to
-      - name: performedby
+      - name: bk_user_ran_action
         description: the user the action performed by
       - name: type
         description: type of the action performed
       - name: properties
         description: the action metadata monitored
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source
@@ -212,52 +198,49 @@ models:
   - name: raw_stage_workflow_action_execution
     description: contain one record per each action executed in workflow execution per load.
     columns:
-      - name: id
+      - name: bk_workflow_action_execution
         description: workflow action execution primary key
-        tests:
-          - unique
-          - not_null
-      - name: idapp
+      - name: bk_app
         description: application id the action executed connected to
-      - name: idorg
+      - name: bk_org
         description: organization id the action executed connected to
-      - name: idaction
+      - name: bk_action
         description: internal unique id of timestamp of the action
-      - name: idworkflow
+      - name: bk_workflow
         description: connection to workflow
-      - name: idworkflowexecution
+      - name: bk_workflow_execution
         description: connection to workflow execution
       - name: details
         description: the user performed the workflow action execution
-      - name: calculatedruntimeinfo
+      - name: calculated_run_time_info
         description: custom action metadata required for the action execution
-      - name: actiontype
+      - name: action_type
         description: action type
-      - name: runtime
+      - name: run_time
         description: the workflow action execution run time
-      - name: runtimeinfo
+      - name: run_time_info
         description: action metadata required for the action execution
-      - name: runtimeerror
+      - name: run_time_error
         description: error that was raised during action execution process
-      - name: executionerrortype
+      - name: execution_error_type
         description: error that was raised during action definition process
-      - name: errortime
+      - name: error_time
         description: error time record for error that was raised during action definition process
-      - name: completiontime
+      - name: completion_time
         description: the workflow action execution completed time
-      - name: continueonerror
+      - name: continue_on_error
         description: indication if continute workflow execution even if error raised on action execution
-      - name: ignoredtime
+      - name: ignored_time
         description: the workflow action execution ignored time
-      - name: iscompleted
+      - name: ind_completed
         description: indication for workflow action execution completed successfuly
-      - name: isrun
+      - name: ind_run
         description: indication for did the action executed
-      - name: isignored
+      - name: ind_ignored
         description: was the workflow action execution ignored during workflow execution
-      - name: creationtime
+      - name: dt_creation
         description: creation record time
-      - name: updatetime
+      - name: dt_update
         description: last update record time
       - name: record_source
         description: is defined as a constant by prefixing the constant value with !. the record table source

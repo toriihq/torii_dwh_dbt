@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: raw_stage
-    description: 'torii operational source data'
+  - name: raw_torii
+    description: 'torii raw staging source data'
     database: STAGE_FIVETRAN
-    schema: RAW_TORII
+    schema: raw_torii
     tables:
       - name: org
         description: 'Organization (or: Org) is a customer which is a company. Each Org has information about their name, domains, preferences, etc. one record per organization, includes demos & disabled'
@@ -21,7 +21,7 @@ sources:
           - name: nickname
             description: 'company nick name, in catalog use'
           - name: emailalias
-            description: 'the signature name of an email sent by Torii, usually IT, deifned by the customer'
+            description: 'the signature name of an email sent by Torii, usually IT, defined by the customer'
           - name: logourl
             description: 'company url of logo'
           - name: extensionmode
@@ -31,7 +31,7 @@ sources:
           - name: appnotinuseperiod
             description: 'number of days defines an app not in use, by the customer'
           - name: defaultcurrency
-            description: 'the defualt expenses currency of the customer'
+            description: 'the default expenses currency of the customer'
           - name: inactivitytimeout
             description: ''
           - name: isdemo
@@ -65,7 +65,7 @@ sources:
               - unique
               - not_null
           - name: idorg
-            description: 'the organzation the user is connected to'
+            description: 'the organization the user is connected to'
           - name: firstname
             description: 'first name of the user'
           - name: lastname
@@ -85,7 +85,7 @@ sources:
           - name: idrole
             description: 'to which role user is connected to, can be admin, type of admin, or regular user'
           - name: lifecyclestatus
-            description: 'life cycle status of the user. can be 3: active => offboarding => offboarded'
+            description: 'life cycle status of the user. can be 3: active => off-boarding => off-boarded'
           - name: isrestrictedtoriiadmin
             description: 'only for SE , indication permission to view other organization data restricted to a list'
           - name: isdeletedinidentitysources
@@ -121,7 +121,7 @@ sources:
               - unique
               - not_null
           - name: idorg
-            description: 'specify the organization the application is related to. if value exist, will not apear on the airTable source, exist only for the organzation.'
+            description: 'specify the organization the application is related to. if value exist, will not appear on the airTable source, exist only for the organzation.'
           - name: name
             description: 'name of the application'
           - name: description
@@ -149,7 +149,7 @@ sources:
           - name: ispublic
             description: ''
           - name: iscustom
-            description: 'depricated, historicly used to handle custom applications not from the list, if idOrg exist will contain true'
+            description: 'deprecated, historically used to handle custom applications not from the list, if idOrg exist will contain true'
           - name: isarchived
             description: ''
           - name: creationtime
@@ -171,7 +171,7 @@ sources:
               - unique
               - not_null
           - name: idorg
-            description: 'id organzation that the role connect to'
+            description: 'id organization that the role connect to'
           - name: name
             description: 'name of the role'
           - name: description
@@ -259,11 +259,11 @@ sources:
           - name: completiontime
             description: 'the workflow action execution completed time'
           - name: continueonerror
-            description: 'indication if continute workflow execution even if error raised on action execution'
+            description: 'indication if continue workflow execution even if error raised on action execution'
           - name: ignoredtime
             description: 'the workflow action execution ignored time'
           - name: iscompleted
-            description: 'indication for workflow action execution completed successfuly'
+            description: 'indication for workflow action execution completed successfully'
           - name: isrun
             description: 'indication for did the action executed'
           - name: isignored
