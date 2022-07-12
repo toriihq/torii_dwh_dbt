@@ -2,9 +2,9 @@ version: 2
 
 sources:
   - name: raw_torii
-    description: 'torii raw staging source data'
+    description: torii raw source data as extracted from source
     database: STAGE_FIVETRAN
-    schema: raw_torii
+    schema: RAW_TORII
     tables:
       - name: org
         description: 'Organization (or: Org) is a customer which is a company. Each Org has information about their name, domains, preferences, etc. one record per organization, includes demos & disabled'
@@ -278,3 +278,10 @@ sources:
             description: 'is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed'
           - name: effective_from
             description: 'is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE'
+  - name: raw_stage
+    description: torii raw stage source data layer
+    database: TORII_DWH
+    schema: raw_stage
+    tables:
+      - name: raw_stage_org
+        description: Organization (or Org) is a customer which is a company. Each Org has information about their name, domains, preferences, etc. one record per organization, includes demos & disabled
