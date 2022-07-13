@@ -85,3 +85,6 @@ SELECT
     START_DATE,
     TO_DATE({{ dbt_date.now() }}) AS LOAD_DATE
 FROM staging
+    {% if target.name == 'dev' %}
+    limit 100
+    {% endif %}
