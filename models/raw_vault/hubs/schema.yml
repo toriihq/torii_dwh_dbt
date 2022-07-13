@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: hub_app
+    description: hub table for application data source
+    columns:
+      - name: HK_APP
+        description: application hashed key
+      - name: BK_APP
+        description: application primary key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: hub_org
+    description: hub table for application data source
+    columns:
+      - name: HK_ORG
+        description: application hashed key
+      - name: BK_ORG
+        description: application primary key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: hub_role
+    description: hub table for role data source
+    columns:
+      - name: HK_ROLE
+        description: hashed key role
+      - name: BK_ROLE
+        description: role primary key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: hub_user
+    description: hub table for user data source
+    columns:
+      - name: HK_USER
+        description: hashed key of the user id
+      - name: BK_USER
+        description: user business key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: hub_workflow_action_execution
+    description: hub table for hub_workflow_action_execution data source
+    columns:
+      - name: HK_WORKFLOW_ACTION_EXECUTION
+        description: hashed key workflow action execution
+      - name: BK_WORKFLOW_ACTION_EXECUTION
+        description: workflow action execution primary key
+      - name: BK_WORKFLOW
+        description: connection to workflow
+      - name: BK_ACTION
+        description: internal unique id of timestamp of the action
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
