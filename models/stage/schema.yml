@@ -221,3 +221,127 @@ models:
         description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
       - name: effective_from
         description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: v_stg_audit_log
+    description: actions monitored in Torii application. one record per action monitored.
+    columns:
+      - name: hk_audit_log
+        description: hashed key audit log
+        tests:
+          - unique
+          - not_null
+      - name: hk_target_org
+        description: hashed key target organization
+        tests:
+          - not_null
+      - name: hk_target_app
+        description: hashed key target application
+        tests:
+          - not_null
+      - name: hk_target_user
+        description: hashed key target user
+        tests:
+          - not_null
+      - name: hk_user_perform
+        description: hashed key of user performed action
+        tests:
+          - not_null
+      - name: hdiff_audit_log
+        description: hashed diffrence key audit log details
+        tests:
+          - not_null
+      - name: bk_audit_log
+        description: audit log primary key
+        tests:
+          - not_null
+      - name: bk_target_org
+        description: the target organization id the action connected to
+      - name: bk_target_app
+        description: the target application id the action connected to
+      - name: bk_target_user
+        description: the target user id the action connected to
+      - name: bk_user_ran_action
+        description: the user the action performed by
+      - name: type
+        description: type of the action performed
+      - name: properties
+        description: the action metadata monitored
+      - name: dt_creation
+        description: creation record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: v_stg_workflow_action_execution
+    description: contain one record per each action executed in workflow execution.
+    columns:
+      - name: hk_workflow_action_execution
+        description: hashed key workflow action execution
+        tests:
+          - unique
+          - not_null
+      - name: hk_app
+        description: hashed key application id the action executed connected to
+      - name: hk_org
+        description: hashed key organization id the action executed connected to
+      - name: hk_action
+        description: internal unique id of timestamp of the action
+      - name: hk_workflow
+        description: connection to workflow
+      - name: hk_workflow_execution
+        description: connection to workflow execution
+      - name: hdiff_workflow_action_execution_details
+        description: hash value for natural keys
+      - name: hdfif_workflow_action_execution_run_details
+        description: hash value for natural keys
+      - name: bk_workflow_action_execution
+        description: workflow action execution primary key
+      - name: bk_app
+        description: application id the action executed connected to
+      - name: bk_org
+        description: organization id the action executed connected to
+      - name: bk_action
+        description: internal unique id of timestamp of the action
+      - name: bk_workflow
+        description: connection to workflow
+      - name: bk_workflow_execution
+        description: connection to workflow execution
+      - name: details
+        description: the user performed the workflow action execution
+      - name: calculated_run_time_info
+        description: custom action metadata required for the action execution
+      - name: action_type
+        description: action type
+      - name: run_time
+        description: the workflow action execution run time
+      - name: run_time_info
+        description: action metadata required for the action execution
+      - name: run_time_error
+        description: error that was raised during action execution process
+      - name: execution_error_type
+        description: error that was raised during action definition process
+      - name: error_time
+        description: error time record for error that was raised during action definition process
+      - name: completion_time
+        description: the workflow action execution completed time
+      - name: ind_continue_on_error
+        description: indication if continute workflow execution even if error raised on action execution
+      - name: ignored_time
+        description: the workflow action execution ignored time
+      - name: ind_completed
+        description: indication for workflow action execution completed successfuly
+      - name: ind_run
+        description: indication for did the action executed
+      - name: ind_ignored
+        description: was the workflow action execution ignored during workflow execution
+      - name: dt_creation
+        description: creation record time
+      - name: dt_update
+        description: last update record time
+      - name: record_source
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: load_date
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: effective_from
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
