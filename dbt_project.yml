@@ -50,3 +50,9 @@ models:
       enabled: true
       +materialized: view
       +schema: stage
+    raw_vault:
+      +tags: raw_vault
+      materialized: incremental
+      hubs:
+        +tags: hubs
+        +schema: raw_vault

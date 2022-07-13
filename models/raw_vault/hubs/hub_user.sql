@@ -1,6 +1,6 @@
-{%- set source_model = "v_stg_org" -%}
-{%- set src_pk = "HK_ORG" -%}
-{%- set src_nk = "BK_ORG" -%}
+{%- set source_model = "v_stg_user" -%}
+{%- set src_pk = "HK_USER" -%}
+{%- set src_nk = "BK_USER" -%}
 {%- set src_ldts = "LOAD_DATE" -%}
 {%- set src_source = "RECORD_SOURCE" -%}
 

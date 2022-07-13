@@ -1,6 +1,6 @@
-{%- set source_model = "v_stg_org" -%}
-{%- set src_pk = "HK_ORG" -%}
-{%- set src_nk = "BK_ORG" -%}
+{%- set source_model = "v_stg_workflow_action_execution" -%}
+{%- set src_pk = "HK_WORKFLOW_ACTION_EXECUTION" -%}
+{%- set src_nk = ["BK_WORKFLOW_ACTION_EXECUTION", "BK_WORKFLOW", "BK_ACTION"] -%}
 {%- set src_ldts = "LOAD_DATE" -%}
 {%- set src_source = "RECORD_SOURCE" -%}
 
