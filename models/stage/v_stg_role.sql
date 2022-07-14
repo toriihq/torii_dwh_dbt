@@ -8,6 +8,9 @@ derived_columns:
 hashed_columns:
     HK_ROLE: BK_ROLE
     HK_ORG: BK_ORG
+    HK_ROLE_ORG:
+        - BK_ROLE
+        - BK_ORG
     HDIFF_ROLE:
         is_hashdiff: true
         columns:
@@ -40,6 +43,7 @@ WITH staging AS (
 SELECT
     HK_ROLE,
     HK_ORG,
+    HK_ROLE_ORG,
     HDIFF_ROLE,
     BK_ROLE,
     BK_ORG,

@@ -66,13 +66,21 @@ models:
       description: hashed key of the organization the user is connected to
     - name: hk_role
       description: hashed key of the role user is connected to
-    - name: hk_off_boarding_started_by_user
+    - name: hk_off_board_by_user
       description: hashed key user started off-boarding process for the user
-    - name: hk_off_boarding_started_by_workflow_action
+    - name: hk_off_board_by_workflow_action
       description: hashed key workflow action started off-boarding process for the user
+    - name: HK_USER_OFF_BOARD_BY_WORKFLOW_ACTION
+      description: hashed key of the user id+hashed key user started off-boarding process for the user
+    - name: HK_USER_OFF_BOARD_BY_USER
+      description: hashed key of the user id+hashed key user started off-boarding process for the user
+    - name: HK_USER_ORG
+      description: hashed key of the user id+hashed key organization
+    - name: HK_USER_ROLE
+      description: hashed key of the user id+hashed key role
     - name: hdiff_user_details
       description: hashed difference key for user details
-    - name: hdiff_user_offboarding
+    - name: hdiff_user_off_board
       description: hashed difference key for user off boarding details
     - name: bk_user
       description: user business key
@@ -83,9 +91,9 @@ models:
       description: the organization the user is connected to
     - name: bk_role
       description: to which role user is connected to, can be admin, type of admin, or regular user
-    - name: bk_off_boarding_started_by_user
+    - name: bk_off_board_by_user
       description: user started off-boarding process for the user
-    - name: bk_off_boarding_started_by_workflow_action
+    - name: bk_off_board_by_workflow_action
       description: na
     - name: user_name
       description: first_name + last_name
@@ -111,9 +119,9 @@ models:
       description: time when user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
     - name: dt_last_seen_product_updates
       description: last time saw product updates by torii new features
-    - name: dt_off_boarding_start
+    - name: dt_off_board_start
       description: off-boarding process started time
-    - name: dt_off_boarding_end
+    - name: dt_off_board_end
       description: off-boarding process ending time
     - name: dt_creation
       description: creation record time

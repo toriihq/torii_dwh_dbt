@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: link_app_org
+    description: link table for app => org data source
+    columns:
+      - name: HK_APP_ORG
+        description: hashed key user+user off boarded started by user hashed key
+      - name: hk_app
+        description: application hashed key
+      - name: hk_org
+        description: organization hashed key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description:  is defined as a constant by prefixing the constant value with !. the record table source
+  - name: link_user_off_board_workflow_action_execution
+    description: link table for user=> off boarding of user by workflow action execution data source
+    columns:
+      - name: HK_USER_OFF_BOARD_BY_WORKFLOW_ACTION
+        description: hashed key of the user => off board by workflow action execution
+      - name: HK_USER
+        description: hashed key of the user id
+      - name: HK_OFF_BOARDING_STARTED_BY_WORKFLOW_ACTION
+        description: hashed key workflow action started off-boarding process for the user
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: link_user_off_board_user
+    description: link table for user+off boarding of user started by user data source
+    columns:
+      - name: HK_USER_OFF_BOARD_BY_USER
+        description: hashed key user+user off boarded started by user hashed key
+      - name: HK_USER
+        description: user hashed key
+      - name: HK_OFF_BOARD_BY_USER
+        description: user off boarded started by user hashed key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: link_user_org
+    description: link table for user+org data source
+    columns:
+      - name: HK_USER_ORG
+        description: hashed key user+role
+      - name: HK_USER
+        description: user hashed key
+      - name: HK_ORG
+        description: organization hashed key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: link_user_role
+    description: hub table for user => role data source
+    columns:
+      - name: HK_USER_ROLE
+        description: hashed key user+role
+      - name: HK_USER
+        description: user hashed key
+      - name: HK_ROLE
+        description: to which role user is connected to, can be admin, type of admin, or regular user hashed key
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+  - name: link_role_org
+    description: link table for role & org data source
+    columns:
+      - name: HK_ROLE_ORG
+        description: hashed key org+role
+      - name: HK_ORG
+        description: hashed key org
+      - name: HK_ROLE
+        description: hashed key role
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source

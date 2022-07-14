@@ -66,9 +66,9 @@ models:
         description: the organzation the user is connected to
       - name: bk_role
         description: to which role user is connected to, can be admin, type of admin, or regular user
-      - name: bk_off_boarding_started_by_user
+      - name: bk_off_board_by_user
         description: user started off-boarding process for the user
-      - name: bk_off_boarding_started_by_workflow_action
+      - name: bk_off_board_by_workflow_action
         description: workflow action started off-boarding process for the user
       - name: user_name
         description: first_name + last_name
@@ -94,9 +94,9 @@ models:
         description: time when user deleted on identity app source. like gsuite for example, if so user can be recommended to deletion and start his offboarding
       - name: dt_last_seen_product_updates
         description: last time saw product updates by torii new features
-      - name: dt_off_boarding_start
+      - name: dt_off_board_start
         description: off-boarding process started time
-      - name: dt_off_boarding_end
+      - name: dt_off_board_end
         description: off-boarding process ending time
       - name: dt_creation
         description: creation record time

@@ -47,7 +47,7 @@ hashed_columns:
             - DT_OFF_BOARD_END
             - EFFECTIVE_FROM
 
-    HDIFF_USER_OFFBOARD:
+    HDIFF_USER_OFF_BOARD:
         is_hashdiff: true
         columns:
             - BK_OFF_BOARD_BY_USER
@@ -82,7 +82,7 @@ SELECT
     HK_USER_ORG,
     HK_USER_ROLE,
     HDIFF_USER_DETAILS,
-    HDIFF_USER_OFFBOARD,
+    HDIFF_USER_OFF_BOARD,
     BK_USER,
     BK_ORG,
     BK_ROLE,

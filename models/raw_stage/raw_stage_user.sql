@@ -4,7 +4,10 @@ with source_raw_torii as
         *
     from {{ source('raw_torii', 'user') }} as t
     {% if target.name == 'dev' %}
-    limit 100
+    where
+        OFFBOARDINGSTARTEDBYIDUSER is not null or
+        OFFBOARDINGSTARTEDBYIDWORKFLOWACTION is not null
+    limit 1000
     {% endif %}
     ),
 {# Custom Hard busienss rules transforms logic CTE #}
@@ -27,27 +30,27 @@ user_transform as
 {# Final CTE #}
 final as
     (select
-        s.ID as bk_user,
-        s.IDORG as bk_org,
-        s.IDROLE as bk_role,
-        s.OFFBOARDINGSTARTEDBYIDUSER as bk_off_board_by_user,
-        s.OFFBOARDINGSTARTEDBYIDWORKFLOWACTION as bk_off_board_by_workflow_action,
-        ut.user_name as user_name,
-        ut.STATUS as user_status,
-        ut.LIFECYCLESTATUS as life_cycle_status,
-        ut.EMAIL as user_email,
-        ut.CANONICALEMAIL as user_canonical_email,
-        ut.PHOTOURL as user_photo_url,
-        s.ISRESTRICTEDTORIIADMIN as ind_restricted_torii_admin,
-        s.ISDELETEDINIDENTITYSOURCES as ind_deleted_inidentity_sources,
-        s.ISEXTERNAL as ind_user_external,
-        s.ISTORIIADMIN as ind_torii_admin,
-        ut.IDENTITYSOURCESDELETIONTIME as dt_identity_sources_deletion,
-        ut.LASTSEENPRODUCTUPDATESTIME as dt_last_seen_product_updates,
-        ut.OFFBOARDINGSTARTTIME as dt_off_board_start,
-        ut.OFFBOARDINGENDTIME as dt_off_board_end,
-        ut.CREATIONTIME as dt_creation,
-        ut.UPDATETIME as dt_update
+        s.ID as BK_USER,
+        s.IDORG as BK_ORG,
+        s.IDROLE as BK_ROLE,
+        s.OFFBOARDINGSTARTEDBYIDUSER as BK_OFF_BOARD_BY_USER,
+        s.OFFBOARDINGSTARTEDBYIDWORKFLOWACTION as BK_OFF_BOARD_BY_WORKFLOW_ACTION,
+        ut.user_name as USER_NAME,
+        ut.STATUS as USER_STATUS,
+        ut.LIFECYCLESTATUS as LIFE_CYCLE_STATUS,
+        ut.EMAIL as USER_EMAIL,
+        ut.CANONICALEMAIL as USER_CANONICAL_EMAIL,
+        ut.PHOTOURL as USER_PHOTO_URL,
+        s.ISRESTRICTEDTORIIADMIN as IND_RESTRICTED_TORII_ADMIN,
+        s.ISDELETEDINIDENTITYSOURCES as IND_DELETED_INIDENTITY_SOURCES,
+        s.ISEXTERNAL as IND_USER_EXTERNAL,
+        s.ISTORIIADMIN as IND_TORII_ADMIN,
+        ut.IDENTITYSOURCESDELETIONTIME as DT_IDENTITY_SOURCES_DELETION,
+        ut.LASTSEENPRODUCTUPDATESTIME as DT_LAST_SEEN_PRODUCT_UPDATES,
+        ut.OFFBOARDINGSTARTTIME as DT_OFF_BOARD_START,
+        ut.OFFBOARDINGENDTIME as DT_OFF_BOARD_END,
+        ut.CREATIONTIME as DT_CREATION,
+        ut.UPDATETIME as DT_UPDATE
     from source_raw_torii s
     inner join user_transform ut
         on (s.id = ut.id))
