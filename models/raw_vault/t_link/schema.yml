@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: t_link_action_audit_log
+    description: transaction link action audit log source data
+    columns:
+      - name: HK_AUDIT_LOG
+        description: hashed key audit log
+      - name: HK_TARGET_ORG
+        description: hashed key target organization
+      - name: HK_TARGET_APP
+        description: hashed key target application
+      - name: HK_TARGET_USER
+        description: hashed key target user
+      - name: HK_USER_PERFORM
+        description: hashed key of user performed action
+      - name: TYPE
+        description: type of the action performed
+      - name: PROPERTIES
+        description: the action metadata monitored
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: EFFECTIVE_FROM
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
+  - name: t_link_workflow_action_execution
+    description: transaction link workflow action execution source data
+    columns:
+      - name: HK_WORKFLOW_ACTION_EXECUTION
+        description: hashed key workflow action execution
+      - name: HK_APP
+        description: hashed key application id the action executed connected to
+      - name: HK_ORG
+        description: hashed key organization id the action executed connected to
+      - name: HK_ACTION
+        description: internal unique id of timestamp of the action
+      - name: HK_WORKFLOW
+        description: connection to workflow
+      - name: HK_WORKFLOW_EXECUTION
+        description: connection to workflow execution
+      - name: DETAILS
+        description: the user performed the workflow action execution
+      - name: CALCULATED_RUN_TIME_INFO
+        description: custom action metadata required for the action execution
+      - name: ACTION_TYPE
+        description: action type
+      - name: RUN_TIME
+        description: the workflow action execution run time
+      - name: RUN_TIME_INFO
+        description: action metadata required for the action execution
+      - name: RUN_TIME_ERROR
+        description: error that was raised during action execution process
+      - name: EXECUTION_ERROR_TYPE
+        description: error that was raised during action definition process
+      - name: ERROR_TIME
+        description: error time record for error that was raised during action definition process
+      - name: COMPLETION_TIME
+        description: the workflow action execution completed time
+      - name: IND_CONTINUE_ON_ERROR
+        description: indication if continute workflow execution even if error raised on action execution
+      - name: IGNORED_TIME
+        description: the workflow action execution ignored time
+      - name: IND_COMPLETED
+        description: indication for workflow action execution completed successfuly
+      - name: IND_RUN
+        description: indication for did the action executed
+      - name: IND_IGNORED
+        description: was the workflow action execution ignored during workflow execution
+      - name: RECORD_SOURCE
+        description: is defined as a constant by prefixing the constant value with !. the record table source
+      - name: LOAD_DATE
+        description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
+      - name: EFFECTIVE_FROM
+        description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
