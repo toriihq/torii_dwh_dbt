@@ -1,4 +1,4 @@
-{%- set source_model = "v_stg_role" -%}
+{%- set source_model = "stage_role" -%}
 {%- set src_pk = "HK_ROLE_ORG" -%}
 {%- set src_fk = ["HK_ORG", "HK_ROLE"] -%}
 {%- set src_ldts = "LOAD_DATE" -%}

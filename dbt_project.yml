@@ -53,9 +53,9 @@ models:
     raw_vault:
       +tags: raw_vault
       materialized: incremental
-      hubs:
-        +tags: hubs
+      hub:
+        +tags: hub
         +schema: raw_vault
-      links:
-        +tags: links
+      link:
+        +tags: link
         +schema: raw_vault

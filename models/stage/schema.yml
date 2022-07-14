@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: v_stg_org
+  - name: stage_org
     description: 'Organization (or: Org) is a customer which is a company. Each Org has information about their name, domains, preferences, etc. one record per organization, includes demos & disabled. staging layer'
     columns:
       - name: hk_org
@@ -54,7 +54,7 @@ models:
         description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
       - name: start_date
         description: is our business start date for a given record, and it makes sense to derive this from the entity recorded start date will remain constant
-  - name: v_stg_user
+  - name: stage_user
     description: A user is an entity that is unique by its email. Every email we see on other systems is a user on Torii. We refer to a specific organization with idUser. one record per user, each user connected to one orgID. staging layer
     columns:
     - name: hk_user
@@ -133,7 +133,7 @@ models:
       description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
     - name: effective_from
       description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
-  - name: v_stg_app
+  - name: stage_app
     description: An application is organization-agnostic entity. It has name, url, icon, category, vendor name and other information. one record per application. the source for this table is from the airTable. staging layer
     columns:
     - name: hk_app
@@ -188,7 +188,7 @@ models:
       description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
     - name: effective_from
       description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
-  - name: v_stg_role
+  - name: stage_role
     description: defines users roles in Torii application. each organization can defines its own custom roles. one record per role defined, including deleted. staging layer
     columns:
       - name: hk_role
@@ -229,7 +229,7 @@ models:
         description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
       - name: effective_from
         description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
-  - name: v_stg_audit_log
+  - name: stage_audit_log
     description: actions monitored in Torii application. one record per action monitored.
     columns:
       - name: hk_audit_log
@@ -281,7 +281,7 @@ models:
         description: is defined as a calculated column using a function. Here we are synthetically creating a LOAD_DATE for the purposes of simulating a transaction feed
       - name: effective_from
         description: is our business effective date for a given record, and it makes sense to derive this from the TRANSACTION_DATE
-  - name: v_stg_workflow_action_execution
+  - name: stage_workflow_action_execution
     description: contain one record per each action executed in workflow execution.
     columns:
       - name: hk_workflow_action_execution

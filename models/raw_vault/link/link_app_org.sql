@@ -1,4 +1,4 @@
-{%- set source_model = "v_stg_app" -%}
+{%- set source_model = "stage_app" -%}
 {%- set src_pk = "HK_APP_ORG" -%}
 {%- set src_fk = ["HK_APP", "HK_ORG"] -%}
 {%- set src_ldts = "LOAD_DATE" -%}

@@ -1,6 +1,6 @@
-{%- set source_model = "v_stg_user" -%}
-{%- set src_pk = "HK_USER_ORG" -%}
-{%- set src_fk = ["HK_USER", "HK_ORG"] -%}
+{%- set source_model = "stage_user" -%}
+{%- set src_pk = "HK_USER_ROLE" -%}
+{%- set src_fk = ["HK_USER", "HK_ROLE"] -%}
 {%- set src_ldts = "LOAD_DATE" -%}
 {%- set src_source = "RECORD_SOURCE" -%}
 

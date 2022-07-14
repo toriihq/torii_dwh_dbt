@@ -1,4 +1,4 @@
-{%- set source_model = "v_stg_user" -%}
+{%- set source_model = "stage_user" -%}
 {%- set src_pk = "HK_USER" -%}
 {%- set src_nk = "BK_USER" -%}
 {%- set src_ldts = "LOAD_DATE" -%}

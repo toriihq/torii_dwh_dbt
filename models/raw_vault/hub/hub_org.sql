@@ -1,6 +1,6 @@
-{%- set source_model = "v_stg_role" -%}
-{%- set src_pk = "HK_ROLE" -%}
-{%- set src_nk = "BK_ROLE" -%}
+{%- set source_model = "stage_org" -%}
+{%- set src_pk = "HK_ORG" -%}
+{%- set src_nk = "BK_ORG" -%}
 {%- set src_ldts = "LOAD_DATE" -%}
 {%- set src_source = "RECORD_SOURCE" -%}
 
