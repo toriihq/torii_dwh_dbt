@@ -62,3 +62,6 @@ models:
       sat:
         +tags: sat
         +schema: raw_vault
+      t_link:
+        +tags: t_link
+        +schema: raw_vault
