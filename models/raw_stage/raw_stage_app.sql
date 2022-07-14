@@ -28,7 +28,7 @@ final as
     (select
         s.id as BK_APP,
         s.idorg as BK_ORG,
-        ot.name as BK_APP_NAME,
+        ot.name as APP_NAME,
         ot.description as APP_DESCRIPTION,
         ot.imageurl as APP_IMAGE_URL,
         ot.searchterm as SEARCH_TERM,

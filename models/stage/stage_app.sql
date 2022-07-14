@@ -16,7 +16,7 @@ hashed_columns:
         columns:
             - BK_APP
             - BK_ORG
-            - BK_APP_NAME
+            - APP_NAME
             - APP_DESCRIPTION
             - APP_IMAGE_URL
             - SEARCH_TERM
@@ -54,7 +54,7 @@ SELECT
     HDIFF_APP,
     BK_APP,
     BK_ORG,
-    BK_APP_NAME,
+    APP_NAME,
     APP_DESCRIPTION,
     APP_IMAGE_URL,
     SEARCH_TERM,
