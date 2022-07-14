@@ -56,3 +56,6 @@ models:
       hubs:
         +tags: hubs
         +schema: raw_vault
+      links:
+        +tags: links
+        +schema: raw_vault

@@ -8,6 +8,9 @@ derived_columns:
 hashed_columns:
     HK_APP: BK_APP
     HK_ORG: BK_ORG
+    HK_APP_ORG:
+        - BK_APP
+        - BK_ORG
     HDIFF_APP:
         is_hashdiff: true
         columns:
@@ -47,6 +50,7 @@ WITH staging AS (
 SELECT
     HK_APP,
     HK_ORG,
+    HK_APP_ORG,
     HDIFF_APP,
     BK_APP,
     BK_ORG,
